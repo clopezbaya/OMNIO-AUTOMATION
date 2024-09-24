@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { login, logoutUser, registerCompany } from '../helpers/auth';
+import {
+  login,
+  logoutAdmin,
+  logoutUser,
+  registerCompany,
+} from '../helpers/auth';
 import { Dashboard } from '../pages/dashboard';
 import { DashboardList } from '../pages/dashboardList';
 import { globals } from '../../globals';
@@ -65,10 +70,10 @@ test.describe('Company connect with Shippedge', async () => {
       await dashboardList.clickCreateConection();
       await dashboardList.selectkWarehuseConnection();
       await dashboardList.clickButtonAssigned();
-      expect(await page.getByText('qa17', { exact: true })).toBeVisible();
+      await expect(page.getByText('qa17', { exact: true })).toBeVisible();
       await dashboardList.loginUser();
       await page.waitForURL(globals.DASHBOARD_URL);
-      expect(page.url()).toBe(globals.DASHBOARD_URL);
+      await expect(page.url()).toBe(globals.DASHBOARD_URL);
     });
 
     await test.step('Verify that the user can logout', async () => {
@@ -76,7 +81,7 @@ test.describe('Company connect with Shippedge', async () => {
       firstLetter.toUpperCase();
       await logoutUser(page, firstLetter);
       await page.waitForURL(globals.LOGIN_URL);
-      expect(page.url()).toBe(globals.LOGIN_URL);
+      await expect(page.url()).toBe(globals.LOGIN_URL);
     });
 
     await test.step('Cleanning Register', async () => {
@@ -89,7 +94,10 @@ test.describe('Company connect with Shippedge', async () => {
       await dashboardList.clickCompanySelected();
       await dashboardList.clickWarehouses();
       await dashboardList.clickDeleteConnection();
-      expect(await page.getByText(globals.WAREHOUSE)).toHaveCount(0);
+      await expect(page.getByText(globals.WAREHOUSE)).toHaveCount(0);
+      await logoutAdmin(page);
+      await page.waitForURL(globals.LOGIN_URL);
+      await expect(page.url()).toBe(globals.LOGIN_URL);
     });
   });
 });
