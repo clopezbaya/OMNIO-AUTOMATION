@@ -5,8 +5,8 @@ import {
   logoutUser,
   registerCompany,
 } from '../helpers/auth';
-import { Dashboard } from '../pages/dashboard';
-import { DashboardList } from '../pages/dashboardList';
+import { DashboardAdmin } from '../pages/dashboardAdmin';
+import { DashboardListAdmin } from '../pages/dashboardListAdmin';
 import { globals } from '../../globals';
 import { Login } from '../pages/login';
 
@@ -18,8 +18,8 @@ test.describe('Company connect with Shippedge', async () => {
     page,
   }) => {
     const loginPage = new Login(page);
-    const dashboard = new Dashboard(page);
-    const dashboardList = new DashboardList(
+    const dashboardAdmin = new DashboardAdmin(page);
+    const dashboardListAdmin = new DashboardListAdmin(
       page,
       nameCompany,
       warehouseSelected
@@ -59,19 +59,19 @@ test.describe('Company connect with Shippedge', async () => {
     });
 
     await test.step('Verify that the user can go to List Company', async () => {
-      await dashboard.clickCompanyButton();
-      await dashboard.clickListButton();
-      await dashboardList.clickCompanySelected();
-      await dashboardList.clickWarehouses();
+      await dashboardAdmin.clickCompanyButton();
+      await dashboardAdmin.clickListButton();
+      await dashboardListAdmin.clickCompanySelected();
+      await dashboardListAdmin.clickWarehouses();
       expect(page.getByRole('button', { name: 'Create' })).toBeVisible();
     });
 
     await test.step('Verify that the user can select the WMS to connect', async () => {
-      await dashboardList.clickCreateConection();
-      await dashboardList.selectkWarehuseConnection();
-      await dashboardList.clickButtonAssigned();
+      await dashboardListAdmin.clickCreateConection();
+      await dashboardListAdmin.selectkWarehuseConnection();
+      await dashboardListAdmin.clickButtonAssigned();
       await expect(page.getByText('qa17', { exact: true })).toBeVisible();
-      await dashboardList.loginUser();
+      await dashboardListAdmin.loginUser();
       await page.waitForURL(globals.DASHBOARD_URL);
       await expect(page.url()).toBe(globals.DASHBOARD_URL);
     });
@@ -89,11 +89,11 @@ test.describe('Company connect with Shippedge', async () => {
       await loginPage.fillUserEmailField('admin@shipedge.com');
       await loginPage.fillPasswordField('Admin123');
       await loginPage.clickLogin();
-      await dashboard.clickCompanyButton();
-      await dashboard.clickListButton();
-      await dashboardList.clickCompanySelected();
-      await dashboardList.clickWarehouses();
-      await dashboardList.clickDeleteConnection();
+      await dashboardAdmin.clickCompanyButton();
+      await dashboardAdmin.clickListButton();
+      await dashboardListAdmin.clickCompanySelected();
+      await dashboardListAdmin.clickWarehouses();
+      await dashboardListAdmin.clickDeleteConnection();
       await expect(page.getByText(globals.WAREHOUSE)).toHaveCount(0);
       await logoutAdmin(page);
       await page.waitForURL(globals.LOGIN_URL);

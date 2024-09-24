@@ -1,6 +1,6 @@
 import { type Page, type Locator } from '@playwright/test';
 
-export class Dashboard {
+export class DashboardAdmin {
   page: Page;
   companyButton: Locator;
   listBUtton: Locator;
