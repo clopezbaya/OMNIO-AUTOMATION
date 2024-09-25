@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
-import { Login } from '../pages/login';
-import { LogoutAdmin } from '../pages/logoutAdmin';
-import { LogoutUser } from '../pages/logoutUser';
-import { Register } from '../pages/register';
+import { Login } from '../pages/admin/login';
+import { LogoutAdmin } from '../pages/admin/logoutAdmin';
+import { LogoutUser } from '../pages/user/logoutUser';
+import { Register } from '../pages/admin/register';
 
 export async function login(page: Page, username: string, password: string) {
   const login = new Login(page);

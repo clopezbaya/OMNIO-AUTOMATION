@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { login, logoutAdmin } from '../helpers/auth';
+import { login, logoutAdmin } from '../helpers/authAdmin';
 import { globals } from '../../globals';
 
 test.describe('Test e2e login - logout', () => {

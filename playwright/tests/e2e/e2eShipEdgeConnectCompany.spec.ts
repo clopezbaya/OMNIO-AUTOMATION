@@ -4,14 +4,15 @@ import {
   logoutAdmin,
   logoutUser,
   registerCompany,
-} from '../helpers/auth';
-import { DashboardAdmin } from '../pages/dashboardAdmin';
-import { DashboardListAdmin } from '../pages/dashboardListAdmin';
+} from '../helpers/authAdmin';
+import { loginShipedgeIloc } from '../helpers/authUser';
+import { DashboardAdmin } from '../pages/admin/dashboardAdmin';
+import { DashboardListAdmin } from '../pages/admin/dashboardListAdmin';
 import { globals } from '../../globals';
-import { Login } from '../pages/login';
-
-let nameCompany = 'David Company';
-let warehouseSelected = globals.WAREHOUSE;
+import { Login } from '../pages/admin/login';
+import { DashboardUser } from '../pages/user/dashboardUser';
+import { DashboardNewInventoryLocationUser } from '../pages/user/dashboardNewInventoryLocationUser';
+import { ILocShipedgePopUp } from '../pages/user/iLocShipedgePopUp';
 
 test.describe('Company connect with Shippedge', async () => {
   test('Verify that we can connect the new company with warehouse in Shipedge', async ({
@@ -21,9 +22,16 @@ test.describe('Company connect with Shippedge', async () => {
     const dashboardAdmin = new DashboardAdmin(page);
     const dashboardListAdmin = new DashboardListAdmin(
       page,
-      nameCompany,
-      warehouseSelected
+      globals.COMPANYTEST.COMPANY,
+      globals.WAREHOUSE
     );
+
+    const dashboardUser = new DashboardUser(page);
+    const dashboardNewInventoryLocation = new DashboardNewInventoryLocationUser(
+      page,
+      globals.ILOCSHIPEDGE.NAME
+    );
+    const iLocShipedgePopUp = new ILocShipedgePopUp(page);
 
     await test.step('Surfing to Omnio web', async () => {
       await page.goto('/');
@@ -41,7 +49,7 @@ test.describe('Company connect with Shippedge', async () => {
         'Pizarro Villca',
         'david1@gmail.com',
         'Shipedge123.',
-        nameCompany,
+        globals.COMPANYTEST.COMPANY,
         'David Pizarro Villca',
         'United States',
         'New York',
@@ -76,15 +84,33 @@ test.describe('Company connect with Shippedge', async () => {
       await expect(page.url()).toBe(globals.DASHBOARD_URL);
     });
 
+    await test.step('Verify that the user can connect with iLoc', async () => {
+      await dashboardUser.clickSettings();
+      await dashboardUser.clickNewInventoryLocation();
+      await dashboardNewInventoryLocation.clickILocSelected();
+      await iLocShipedgePopUp.clickDropDownWarehouse(globals.WAREHOUSE);
+      await loginShipedgeIloc(
+        page,
+        globals.ILOCSHIPEDGE.USERNAME,
+        globals.ILOCSHIPEDGE.PASSWORD
+      );
+      await expect(page.getByText('Save succesfully')).toBeVisible();
+    });
+
+    await test.step('Deleting Connection', async () => {
+      await dashboardNewInventoryLocation.deleteILoc(globals.WAREHOUSE);
+      await expect(page.getByText('Remove succesfully')).toBeVisible();
+    });
+
     await test.step('Verify that the user can logout', async () => {
-      const firstLetter = nameCompany.charAt(0);
+      const firstLetter = globals.COMPANYTEST.COMPANY.charAt(0);
       firstLetter.toUpperCase();
       await logoutUser(page, firstLetter);
       await page.waitForURL(globals.LOGIN_URL);
       await expect(page.url()).toBe(globals.LOGIN_URL);
     });
 
-    await test.step('Cleanning Register', async () => {
+    await test.step('Cleanning Register Company', async () => {
       await loginPage.userEmailField.isVisible();
       await loginPage.fillUserEmailField('admin@shipedge.com');
       await loginPage.fillPasswordField('Admin123');

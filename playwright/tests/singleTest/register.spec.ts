@@ -1,6 +1,6 @@
 import { test, Browser, expect, Page } from '@playwright/test';
-import { registerCompany } from '../helpers/auth';
-import { Login } from '../pages/login';
+import { registerCompany } from '../helpers/authAdmin';
+import { Login } from '../pages/admin/login';
 
 (async () => {
   test.describe('Register in Omnio', () => {
