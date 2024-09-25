@@ -1,0 +1,70 @@
+COMANDOS UTILES
+Instalación
+
+CLONAR REPOSITORIO
+git clone repo
+
+INSTALAR DEPENDENCIAS
+npm install
+
+INSTALAR PLAYWRIGHT (opcional si no lo has hecho ya):
+npx playwright install
+
+EJECUCION DE PRUEBAS
+EJECUTAR TODAS LAS PRUEBAS
+npx playwright test
+
+EJECUTAR PRUEBAS ESPECIFICAS
+npx playwright test tests/singleTest/login.spec.ts 
+
+EJECUTAR LAS PRUEBAS EN UN NAVEGADOR ESPECIFICO
+npx playwright test --project=chromium
+
+
+SCRIPTS EN package.json
+{
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep 'smoke'",
+    "test:regression": "playwright test --grep 'regression'",
+    "test:single": "playwright test --grep"
+  }
+}
+
+AHORA PUEDES EJECUTAR LAS PRUEBAS ASI
+EJECUTAR TODAS LAS PRUEBAS
+npm run test
+
+EJECUTAR PRUEBAS SMOKE
+npm run test:smoke
+
+EJECUTAR PRUEBAS REGRESION
+npm run test:regresion
+
+EJECUTAR PRUEBAS INDIVIDUALES
+npm run test:single
+
+LIMPIEZA
+Eliminar archivos generados por Playwright (por ejemplo, resultados de pruebas anteriores):
+npx playwright test --cleanup
+
+
+ESTRUCTURA DEL PROYECTO
+/OMNIO-AUTOMATION
+│
+├── /backend             # All backend framework
+│   └── ejemplo.test.js  
+│
+├── /frontend            # All front-end framework
+│   └── login.page.js    
+│
+└── /playwright                 # Automation Framework
+    └── /tests                  # Main folder that contain all tests
+       └── e2e                 # End - To - End tests
+       └── helpers             # Helpers to connect Single tests with End - to - End Tests
+       └── pages               # POM Files of Omnio
+       └── singleTest          # Singles Tests for functionalities
+    └── globals.ts              # Environment variables used in tests
+    └── package.json            # Dependencies of project
+    └── playwright.config.ts    # Configuration of Playwright
+    └── tsconfig.json           # TypeScript configuration
