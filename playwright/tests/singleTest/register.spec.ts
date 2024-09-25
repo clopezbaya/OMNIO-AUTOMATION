@@ -4,7 +4,7 @@ import { Login } from '../pages/admin/login';
 
 (async () => {
   test.describe('Register in Omnio', () => {
-    test('Verify the correct Register to Omnio', async ({ page }) => {
+    test('smoke: Verify the correct Register to Omnio', async ({ page }) => {
       let login = new Login(page);
       await test.step('Surfing to Omnio web', async () => {
         await page.goto('/');
