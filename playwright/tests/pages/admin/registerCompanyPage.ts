@@ -1,6 +1,6 @@
 import { type Page, type Locator } from '@playwright/test';
 
-export class Register {
+export class RegisterCompanyPage {
   page: Page;
   firstName: Locator;
   lastName: Locator;

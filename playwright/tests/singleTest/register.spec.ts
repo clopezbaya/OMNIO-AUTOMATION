@@ -1,11 +1,12 @@
 import { test, Browser, expect, Page } from '@playwright/test';
-import { registerCompany } from '../helpers/authAdmin';
-import { Login } from '../pages/admin/login';
+import { registerCompany } from '../helpers/authAdminHelper';
+import { LoginPage } from '../pages/admin/loginPage';
+import { globals } from '../../globals';
 
 (async () => {
   test.describe('Register in Omnio', () => {
     test('smoke: Verify the correct Register to Omnio', async ({ page }) => {
-      let login = new Login(page);
+      let login = new LoginPage(page);
       await test.step('Surfing to Omnio web', async () => {
         await page.goto('/');
         await expect(page).toHaveTitle('OmniOrders - Ecommerce Automation');
@@ -18,18 +19,18 @@ import { Login } from '../pages/admin/login';
       await test.step('Fill form', async () => {
         await registerCompany(
           page,
-          'David',
-          'Pizarro Villca',
-          'david1@gmail.com',
-          'Shipedge123.',
-          'David Company',
-          'David Pizarro Villca',
-          'United States',
-          'New York',
-          'Rochester',
-          '1000 Genesee St',
-          85839284,
-          14611
+          globals.COMPANY_TEST.FIRST_NAME,
+          globals.COMPANY_TEST.LAST_NAME,
+          globals.COMPANY_TEST.EMAIL,
+          globals.COMPANY_TEST.PASSWORD,
+          globals.COMPANY_TEST.COMPANY,
+          globals.COMPANY_TEST.CONTACT_FULL_NAME,
+          globals.COMPANY_TEST.COUNTRY,
+          globals.COMPANY_TEST.STATE,
+          globals.COMPANY_TEST.CITY,
+          globals.COMPANY_TEST.ADDRESS,
+          globals.COMPANY_TEST.PHONE,
+          globals.COMPANY_TEST.POSTAL_CODE
         );
       });
 

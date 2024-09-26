@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 
-export class ILocShipedgePopUp {
+export class ILocShipedgePopUpPage {
   page: Page;
   warehouseDropdown: Locator;
   warehouseSelected;

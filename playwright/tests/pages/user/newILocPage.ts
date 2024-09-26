@@ -1,6 +1,6 @@
 import { type Page, type Locator } from '@playwright/test';
 
-export class DashboardNewInventoryLocationUser {
+export class NewILocPage {
   page: Page;
   iLocSelected: Locator;
   deleteILocButton: Locator;

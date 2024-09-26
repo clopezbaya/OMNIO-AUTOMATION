@@ -1,6 +1,6 @@
 import { type Page, type Locator } from '@playwright/test';
 
-export class DashboardUser {
+export class DashUserPage {
   page: Page;
   settingsButton: Locator;
   newInventoryLocationBUtton: Locator;

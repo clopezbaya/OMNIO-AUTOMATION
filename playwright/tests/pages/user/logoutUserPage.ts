@@ -1,6 +1,6 @@
 import { type Page, type Locator } from '@playwright/test';
 
-export class LogoutUser {
+export class LogoutUserPage {
   avatar: Locator;
   logoutButton: Locator;
 
