@@ -6,9 +6,7 @@ import { globals } from '../../globals';
 
 (async () => {
   test.describe('Register new Warehouse', () => {
-    test('smoke: Verify te correct register of new Warehouse', async ({
-      page,
-    }) => {
+    test('Verify te correct register of new Warehouse', async ({ page }) => {
       const newWarehouseAdmin = new NewWarehousePage(page);
       const dashboardAdmin = new DashAdminPage(page);
       await test.step('Login to Omnio', async () => {

@@ -24,15 +24,15 @@ export const globals = {
   },
   ILOC_SHIPEDGE: {
     NAME: 'Shipedge - WAREHOUSE',
-    USERNAME: 'oms2',
+    USERNAME: 'oms3',
     PASSWORD: 'shipedge12345.',
   },
   COMPANY_TEST: {
     FIRST_NAME: 'David',
     LAST_NAME: 'Pizarro Villca',
-    EMAIL: 'usertest@gmail.com',
+    EMAIL: 'usertest1@gmail.com',
     PASSWORD: 'Shipedge123.',
-    COMPANY: 'Company Test playwright',
+    COMPANY: 'Company Test playwright1',
     CONTACT_FULL_NAME: 'David Pizarro Villca',
     COUNTRY: 'United States',
     STATE: 'New York',

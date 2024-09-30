@@ -15,7 +15,7 @@ import { NewILocPage } from '../pages/user/newILocPage';
 import { ILocShipedgePopUpPage } from '../pages/user/iLocShipedgePopUpPage';
 
 test.describe('Company connect with Shippedge', async () => {
-  test('Verify that we can connect the new company with warehouse in Shipedge', async ({
+  test('e2e: Verify that we can connect the new company with warehouse in Shipedge', async ({
     page,
   }) => {
     const loginPage = new LoginPage(page);

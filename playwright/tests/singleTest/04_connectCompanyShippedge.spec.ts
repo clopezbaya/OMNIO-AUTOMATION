@@ -1,19 +1,23 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page, BrowserContext } from '@playwright/test';
 import { login, logoutAdmin, logoutUser } from '../helpers/authAdminHelper';
 import { loginShipedgeIloc } from '../helpers/authUserHelper';
 import { DashAdminPage } from '../pages/admin/dashAdminPage';
 import { ListCompanyPage } from '../pages/admin/listCompanyPage';
 import { globals } from '../../globals';
-import { LoginPage } from '../pages/admin/loginPage';
 import { DashUserPage } from '../pages/user/dashUserPage';
 import { NewILocPage } from '../pages/user/newILocPage';
 import { ILocShipedgePopUpPage } from '../pages/user/iLocShipedgePopUpPage';
 
+let browserContext: BrowserContext;
+let page: Page;
+
+test.beforeAll(async ({ browser }) => {
+  browserContext = await browser.newContext();
+  page = await browserContext.newPage();
+});
+
 test.describe('Company connect with Shippedge', async () => {
-  test('smoke: Verify te correct connection Company - Iloc', async ({
-    page,
-  }) => {
-    const loginPage = new LoginPage(page);
+  test('smoke: Verify te correct connection Company - Iloc', async () => {
     const dashboardAdmin = new DashAdminPage(page);
     const dashboardListAdmin = new ListCompanyPage(
       page,
@@ -72,30 +76,43 @@ test.describe('Company connect with Shippedge', async () => {
         globals.WAREHOUSE_TEST.NAME
       );
       await expect(page.getByText('Remove succesfully')).toBeVisible();
-    });
-
-    await test.step('Verify that the user can logout', async () => {
-      const firstLetter = globals.COMPANY_TEST.COMPANY.charAt(0);
-      firstLetter.toUpperCase();
-      await logoutUser(page, firstLetter);
-      await page.waitForURL(globals.LOGIN_URL);
-      await expect(page.url()).toBe(globals.LOGIN_URL);
-    });
-
-    await test.step('Cleanning Register Company', async () => {
-      await loginPage.userEmailField.isVisible();
-      await loginPage.fillUserEmailField('admin@shipedge.com');
-      await loginPage.fillPasswordField('Admin123');
-      await loginPage.clickLogin();
-      await dashboardAdmin.clickCompanyButton();
-      await dashboardAdmin.clickListCompaniesButton();
-      await dashboardListAdmin.clickCompanySelected();
-      await dashboardListAdmin.clickWarehouses();
-      await dashboardListAdmin.clickDeleteConnection();
-      await expect(page.getByText(globals.WAREHOUSE_TEST.NAME)).toHaveCount(0);
-      await logoutAdmin(page);
-      await page.waitForURL(globals.LOGIN_URL);
-      await expect(page.url()).toBe(globals.LOGIN_URL);
+      await browserContext.close();
     });
   });
+});
+
+//Hook Limpia registros
+test.afterAll(async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  const dashboardAdmin = new DashAdminPage(page);
+  const dashboardListAdmin = new ListCompanyPage(
+    page,
+    globals.COMPANY_TEST.COMPANY,
+    globals.WAREHOUSE_TEST.NAME
+  );
+
+  // Login as admin
+  await login(page, 'admin@shipedge.com', 'Admin123');
+  await page.waitForURL(globals.DASHBOARD_ADMIN_URL);
+  expect(page.url()).toBe(globals.DASHBOARD_ADMIN_URL);
+
+  // Navigate to company list
+  await dashboardAdmin.clickCompanyButton();
+  await dashboardAdmin.clickListCompaniesButton();
+
+  // Delete the test company
+  await dashboardListAdmin.clickCompanySelected();
+  await dashboardListAdmin.clickWarehouses();
+  await dashboardListAdmin.clickDeleteConnection();
+
+  // Verify company deletion
+  await expect(page.getByText(globals.WAREHOUSE_TEST.NAME)).toHaveCount(0);
+
+  // Logout
+  await logoutAdmin(page);
+  await page.waitForURL(globals.LOGIN_URL);
+  await expect(page.url()).toBe(globals.LOGIN_URL);
+  await context.close();
 });
