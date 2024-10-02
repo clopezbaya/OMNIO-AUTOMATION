@@ -76,6 +76,7 @@ test.describe('Company connect with Shippedge', async () => {
         globals.WAREHOUSE_TEST.NAME
       );
       await expect(page.getByText('Remove succesfully')).toBeVisible();
+      await page.close();
       await browserContext.close();
     });
   });
@@ -113,6 +114,6 @@ test.afterAll(async ({ browser }) => {
   // Logout
   await logoutAdmin(page);
   await page.waitForURL(globals.LOGIN_URL);
-  await expect(page.url()).toBe(globals.LOGIN_URL);
+  expect(page.url()).toBe(globals.LOGIN_URL);
   await context.close();
 });

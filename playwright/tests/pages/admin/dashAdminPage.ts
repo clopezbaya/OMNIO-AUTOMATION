@@ -13,8 +13,8 @@ export class DashAdminPage {
     this.companyButton = page.getByText('Companies');
     this.listCompanies = page.getByText('List');
     this.warehousesButton = page.getByText('Warehouses');
-    this.listWarehouses = page.getByText('List');
-    this.newWarehouse = page.getByText('New');
+    this.listWarehouses = page.getByRole('link', { name: 'List', exact: true });
+    this.newWarehouse = page.getByRole('link', { name: 'New', exact: true });
   }
 
   async clickCompanyButton() {

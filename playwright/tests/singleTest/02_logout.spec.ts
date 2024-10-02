@@ -1,10 +1,18 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, BrowserContext, Page } from '@playwright/test';
 import { login, logoutAdmin } from '../helpers/authAdminHelper';
 import { globals } from '../../globals';
 
+let browserContext: BrowserContext;
+let page: Page;
+
+test.beforeAll(async ({ browser }) => {
+  browserContext = await browser.newContext();
+  page = await browserContext.newPage();
+});
+
 (async () => {
   test.describe('Logout to Omnio', () => {
-    test('smoke: Verify the correct logout to Omnio', async ({ page }) => {
+    test('smoke: Verify the correct logout to Omnio', async () => {
       await test.step('Login to Omnio', async () => {
         await login(page, 'admin@shipedge.com', 'Admin123');
         await page.waitForURL(globals.DASHBOARD_ADMIN_URL);
@@ -15,6 +23,8 @@ import { globals } from '../../globals';
         await logoutAdmin(page);
         await page.waitForURL(globals.LOGIN_URL);
         expect(page.url()).toBe(globals.LOGIN_URL);
+        await page.close();
+        await browserContext.close();
       });
     });
   });

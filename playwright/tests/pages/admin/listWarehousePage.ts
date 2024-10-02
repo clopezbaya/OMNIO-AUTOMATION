@@ -5,18 +5,20 @@ export class ListWarehousePage {
   actionConnectionButton: Locator;
   editConnectionButton: Locator;
   deleteConnectionButton: Locator;
+  confirmDeleteButton: Locator;
 
   constructor(page: Page, warehouse: string) {
     this.checkConnectionButton = page.locator(
-      `()=${warehouse}]/..//button)[2]`
+      `(//tr//td[text()="${warehouse}"]/..//button)[2]`
     );
     this.actionConnectionButton = page.locator(
-      `()=${warehouse}]/..//button)[1]`
+      `(//tr//td[text()="${warehouse}"]/..//button)[1]`
     );
     this.editConnectionButton = page.getByRole('menuitem', { name: 'Edit' });
     this.deleteConnectionButton = page.getByRole('menuitem', {
       name: 'Delete',
     });
+    this.confirmDeleteButton = page.getByRole('button', { name: 'Yes' });
   }
 
   async clickCheckConnectionIloc() {
@@ -24,12 +26,15 @@ export class ListWarehousePage {
   }
 
   async clickEditConection() {
+    await this.actionConnectionButton.scrollIntoViewIfNeeded();
     await this.actionConnectionButton.click();
     await this.editConnectionButton.click();
   }
 
-  async clickDeleteonection() {
+  async clickDeleteConection() {
+    await this.actionConnectionButton.scrollIntoViewIfNeeded();
     await this.actionConnectionButton.click();
     await this.deleteConnectionButton.click();
+    await this.confirmDeleteButton.click();
   }
 }

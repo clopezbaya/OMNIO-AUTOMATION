@@ -16,6 +16,7 @@ export class RegisterCompanyPage {
   postalCode: Locator;
   checkBoxConfirmation: Locator;
   signUpConfirmation: Locator;
+  updateConfirmation: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -35,6 +36,7 @@ export class RegisterCompanyPage {
       '.v-input--selection-controls__ripple'
     );
     this.signUpConfirmation = page.getByText('Sign Up');
+    this.updateConfirmation = page.getByRole('button', { name: 'Update' });
   }
 
   async fillFirstName(firstName: string) {
@@ -92,5 +94,9 @@ export class RegisterCompanyPage {
 
   async clickSignUpConfirmation() {
     await this.signUpConfirmation.click();
+  }
+
+  async clickUpdateregister() {
+    await this.updateConfirmation.click();
   }
 }

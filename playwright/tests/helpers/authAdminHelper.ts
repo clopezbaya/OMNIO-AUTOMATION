@@ -4,6 +4,7 @@ import { LogoutAdminPage } from '../pages/admin/logoutAdminPage';
 import { LogoutUserPage } from '../pages/user/logoutUserPage';
 import { RegisterCompanyPage } from '../pages/admin/registerCompanyPage';
 import { NewWarehousePage } from '../pages/admin/newWarehousePage';
+import { ConnectDataWarehousePage } from '../pages/admin/connectDataWarehousePage';
 
 export async function login(page: Page, username: string, password: string) {
   const login = new LoginPage(page);
@@ -92,4 +93,32 @@ export async function registerWarehouse(
   await registerWarehouse.fillFax(fax);
   await registerWarehouse.fillCorporateEmail(corporateMail);
   await registerWarehouse.clickSave();
+}
+
+export async function registerConnectionWarehouse(
+  page: Page,
+  nameConnection: string,
+  typeDatabase: string,
+  host: string,
+  port: string,
+  database: string,
+  username: string,
+  password: string,
+  character: string,
+  collation: string,
+  timeZone: string
+) {
+  const connectionWarehouse = new ConnectDataWarehousePage(page);
+  await connectionWarehouse.clickClearButton();
+  await connectionWarehouse.fillNameConnection(nameConnection);
+  await connectionWarehouse.selectTypeDataBase(typeDatabase);
+  await connectionWarehouse.fillHost(host);
+  await connectionWarehouse.fillPort(port);
+  await connectionWarehouse.fillDatabase(database);
+  await connectionWarehouse.fillUsername(username);
+  await connectionWarehouse.fillPassword(password);
+  await connectionWarehouse.selectCharacter(character);
+  await connectionWarehouse.selectCollation(collation);
+  await connectionWarehouse.selectTimeZone(timeZone);
+  await connectionWarehouse.clickCreateButton();
 }

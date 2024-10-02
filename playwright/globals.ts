@@ -2,6 +2,7 @@ export const globals = {
   DASHBOARD_ADMIN_URL: 'https://omnio04.shipedge.com/admin/dashboard',
   DASHBOARD_URL: 'https://omnio04.shipedge.com/dashboard',
   WAREHOUSE_CREATE: 'https://omnio04.shipedge.com/admin/warehouses/create',
+  WAREHOUSES_LIST: 'https://omnio04.shipedge.com/admin/warehouses',
 
   LOGIN_URL: 'https://omnio04.shipedge.com/session/login',
   WAREHOUSE_TEST: {
@@ -18,9 +19,21 @@ export const globals = {
     STATE: 'New Mexico',
     CITY: 'Robbinsville',
     POSTAL_CODE: 86951,
-    DESCRIPTION: '',
+    DESCRIPTION: 'TEST',
     FAX: '4542342342',
     CORPORAT_EMAIL: 'test22@gmail.com',
+  },
+  WAREHOUSE_CONNECTION_DATA: {
+    NAME: 'qa17',
+    TYPE_DATA_BASE: 'mysql',
+    HOST: 'qa17.shipedge.com',
+    PORT: '3306',
+    DATABASE: 'shipedge_alpaca_qa17',
+    USERNAME: 'remote',
+    PASSWORD: 'muddyB3e54',
+    CHARACTER: 'utf8',
+    COLLATION: 'utf8_general_ci',
+    TIME_ZONE: '(GMT-04:00) America/La_Paz',
   },
   ILOC_SHIPEDGE: {
     NAME: 'Shipedge - WAREHOUSE',

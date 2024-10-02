@@ -22,7 +22,7 @@ export class NewWarehousePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.name = page.getByLabel('Name');
+    this.name = page.getByLabel('Name', { exact: true });
     this.serverName = page.getByLabel('Server Name');
     this.firstAddress = page.getByLabel('First Address');
     this.prefix = page.getByLabel('Prefix', { exact: true });
@@ -38,6 +38,7 @@ export class NewWarehousePage {
     this.description = page.getByLabel('Description');
     this.fax = page.getByLabel('Fax');
     this.corporateMail = page.getByLabel('Corporate Mail');
+    this.saveButton = page.getByRole('button', { name: 'Save' });
   }
 
   async fillName(name: string) {
