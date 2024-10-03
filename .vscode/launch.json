@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Playwright Service",
+      "program": "${workspaceFolder}/playwright/src/app.js", // Cambia según la ruta de tu archivo
+      "cwd": "${workspaceFolder}/playwright", // Asegúrate de que este sea el directorio donde está el package.json
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
+}

@@ -7,7 +7,7 @@ git clone repo
 INSTALAR DEPENDENCIAS
 npm install
 
-INSTALAR PLAYWRIGHT (opcional si no lo has hecho ya):
+INSTALAR PLAYWRIGHT
 npx playwright install
 
 EJECUCION DE PRUEBAS
