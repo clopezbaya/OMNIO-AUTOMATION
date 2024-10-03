@@ -13,7 +13,7 @@ exports.runTestSingle = async (req, res) => {
     const response = await axios.post(playwrightServiceUrl);
     res.status(200).json({
       message: 'Test individual ejecutado correctamente.',
-      results: response.data.results || response.data.stdout,
+      results: response.data.reportUrl,
     });
   } catch (error) {
     console.error(
@@ -22,7 +22,7 @@ exports.runTestSingle = async (req, res) => {
     );
     res.status(200).json({
       message: 'Test individual ejecutado con errores.',
-      error: error.response?.data?.error || error.message,
+      error: error.response?.data?.reportUrl,
     });
   }
 };

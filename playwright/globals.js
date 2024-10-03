@@ -3,7 +3,6 @@ export const globals = {
   DASHBOARD_URL: 'https://omnio04.shipedge.com/dashboard',
   WAREHOUSE_CREATE: 'https://omnio04.shipedge.com/admin/warehouses/create',
   WAREHOUSES_LIST: 'https://omnio04.shipedge.com/admin/warehouses',
-  TIMEOUT_EXECUTION: 60000,
 
   LOGIN_URL: 'https://omnio04.shipedge.com/session/login',
   WAREHOUSE_TEST: {

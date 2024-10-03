@@ -1,17 +1,20 @@
 import { runE2ETestService } from '../services/e2eService.js';
+import { getReportUrl } from '../utils/responseHelper.js';
 
 export const runE2ETests = async (req, res) => {
   try {
     const results = await runE2ETestService();
+    const reportUrl = getReportUrl(req);
+
     if (results.success) {
       res.status(200).json({
         message: 'E2E tests ejecutados correctamente.',
-        results: results.stdout,
+        reportUrl: reportUrl,
       });
     } else {
       res.status(500).json({
         message: 'E2E tests ejecutados con errores.',
-        error: results.stderr,
+        reportUrl: reportUrl,
       });
     }
   } catch (error) {

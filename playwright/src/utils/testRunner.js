@@ -1,5 +1,4 @@
 import { spawn } from 'child_process';
-import { globals } from '../../globals.js';
 
 export const runTest = (command, args) => {
   return new Promise((resolve) => {
@@ -31,15 +30,6 @@ export const runTest = (command, args) => {
         stdout,
         stderr: error.message,
       });
-    });
-
-    const timeout = setTimeout(() => {
-      console.log('Proceso excedió el tiempo de espera. Forzando el cierre...');
-      testProcess.kill('SIGTERM');
-    }, globals.TIMEOUT_EXECUTION);
-
-    testProcess.on('close', () => {
-      clearTimeout(timeout);
     });
   });
 };

@@ -1,17 +1,20 @@
 import { runSmokeTestService } from '../services/smokeService.js';
+import { getReportUrl } from '../utils/responseHelper.js';
 
 export const runSmokeTests = async (req, res) => {
   try {
     const results = await runSmokeTestService();
+    const reportUrl = getReportUrl(req);
+
     if (results.success) {
       res.status(200).json({
         message: 'Smoke tests ejecutados correctamente.',
-        results: results.stdout,
+        reportUrl: reportUrl,
       });
     } else {
       res.status(500).json({
         message: 'Smoke tests ejecutados con errores.',
-        error: results.stderr,
+        reportUrl: reportUrl,
       });
     }
   } catch (error) {

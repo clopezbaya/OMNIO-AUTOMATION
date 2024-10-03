@@ -12,13 +12,13 @@ exports.runTestRegresion = async (req, res) => {
     const response = await axios.get(playwrightServiceUrl);
     res.status(200).json({
       message: 'Tests de regresión ejecutados correctamente.',
-      results: response.data.results || response.data.stdout,
+      results: response.data.reportUrl,
     });
   } catch (error) {
     console.error('Error al iniciar las pruebas de regresión:', error.message);
     res.status(200).json({
       message: 'Pruebas de regresión ejecutadas con errores.',
-      error: error.response?.data?.error || error.message,
+      error: error.response?.data?.reportUrl,
     });
   }
 };
