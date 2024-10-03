@@ -13,7 +13,7 @@ test.beforeAll(async ({ browser }) => {
 
 (async () => {
   test.describe('Register in Omnio', () => {
-    test('smoke: Verify the correct Register to Omnio', async () => {
+    test('Verify the correct Register to Omnio', async () => {
       let login = new LoginPage(page);
       await test.step('Surfing to Omnio web', async () => {
         await page.goto('/');

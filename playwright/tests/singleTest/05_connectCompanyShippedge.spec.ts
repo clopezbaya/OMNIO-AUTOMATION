@@ -17,7 +17,7 @@ test.beforeAll(async ({ browser }) => {
 });
 
 test.describe('Company connect with Shippedge', async () => {
-  test('smoke: Verify te correct connection Company - Iloc', async () => {
+  test('Verify te correct connection Company - Iloc', async () => {
     const dashboardAdmin = new DashAdminPage(page);
     const dashboardListAdmin = new ListCompanyPage(
       page,

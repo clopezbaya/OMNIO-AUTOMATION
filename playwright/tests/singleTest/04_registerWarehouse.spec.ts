@@ -19,7 +19,7 @@ test.beforeAll(async ({ browser }) => {
 
 (async () => {
   test.describe('Register new Warehouse', () => {
-    test('smoke: Verify te correct register of new Warehouse', async () => {
+    test('Verify te correct register of new Warehouse', async () => {
       const dashboardAdmin = new DashAdminPage(page);
       const listWarehousePage = new ListWarehousePage(
         page,
