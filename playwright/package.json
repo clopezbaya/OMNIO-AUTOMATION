@@ -8,7 +8,7 @@
     "test:regression": "playwright test --grep 'regression'",
     "test:single": "playwright test --grep",
     "test:e2e": "playwright test --grep 'e2e'",
-    "start": "node ./src/app.js",
+    "start": "nodemon ./src/app.js",
     "report": "npx playwright show-report"
   },
   "keywords": [],
@@ -17,7 +17,8 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.47.2",
-    "@types/node": "^22.6.1"
+    "@types/node": "^22.6.1",
+    "nodemon": "^3.1.7"
   },
   "dependencies": {
     "express": "^4.21.0"
