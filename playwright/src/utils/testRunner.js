@@ -1,9 +1,9 @@
 import { spawn } from 'child_process';
 
-export const runTest = (command, args) => {
+export const runTest = (command, args, option = {}) => {
   return new Promise((resolve) => {
-    const testProcess = spawn(command, args, { stdio: 'pipe' });
-
+    const { env } = option;
+    const testProcess = spawn(command, args, { stdio: 'pipe', env });
     let stdout = '';
     let stderr = '';
 
@@ -24,7 +24,7 @@ export const runTest = (command, args) => {
     });
 
     testProcess.on('error', (error) => {
-      console.error('Error en el proceso:', error.message);
+      console.error('Error in the process:', error.message);
       resolve({
         success: false,
         stdout,

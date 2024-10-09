@@ -1,9 +1,9 @@
-import { runE2ETestService } from '../services/e2eService.js';
-import { getReportUrl } from '../utils/responseHelper.js';
+import { runLoginTestService } from '../../services/singleWithDataService/loginService.js';
+import { getReportUrl } from '../../utils/responseHelper.js';
 
-export const runE2ETests = async (req, res) => {
+export const runLoginTest = async (req, res) => {
   try {
-    const results = await runE2ETestService();
+    const results = await runLoginTestService(req.body);
     const reportUrl = getReportUrl(req);
 
     if (results.success) {

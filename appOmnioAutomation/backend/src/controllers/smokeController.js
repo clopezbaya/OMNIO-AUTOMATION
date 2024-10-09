@@ -9,15 +9,15 @@ exports.runTestSmoke = async (req, res) => {
   const playwrightServiceUrl = 'http://localhost:3002/smoke';
 
   try {
-    const response = await axios.post(playwrightServiceUrl);
+    const response = await axios.get(playwrightServiceUrl);
     res.status(200).json({
-      message: 'Tests Smoke ejecutados correctamente.',
+      message: 'Tests executed successfully',
       results: response.data.reportUrl,
     });
   } catch (error) {
-    console.error('Error al iniciar los tests Smoke:', error.message);
+    console.error('Error to init tests', error.message);
     res.status(200).json({
-      message: 'Tests Smoke ejecutados con errores.',
+      message: 'Tests executed with errors',
       error: error.response?.data?.reportUrl,
     });
   }

@@ -6,22 +6,26 @@ let browserContext: BrowserContext;
 let page: Page;
 
 test.beforeAll(async ({ browser }) => {
-  console.log('Iniciando Test');
   browserContext = await browser.newContext();
   page = await browserContext.newPage();
 });
 
 test.describe('Login to Omnio', () => {
   test('smoke: Verify the correct login to Omnio', async () => {
-    console.log('Iniciando Test');
-    await login(page, 'admin@shipedge.com', 'Admin123');
+    // Usar las variables de entorno o las de globals
+    const username =
+      process.env.LOGIN_USERNAME || globals.LOGIN_ADMIN_OMNIO.USERNAME;
+    const password =
+      process.env.LOGIN_PASSWORD || globals.LOGIN_ADMIN_OMNIO.PASSWORD;
+
+    // Llamar al helper login con las credenciales
+    await login(page, username, password);
     await page.waitForURL(globals.DASHBOARD_ADMIN_URL);
     expect(page.url()).toBe(globals.DASHBOARD_ADMIN_URL);
   });
 });
 
 test.afterAll(async () => {
-  console.log('finalizando test');
   await page.close();
   await browserContext.close();
 });

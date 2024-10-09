@@ -9,6 +9,7 @@
     "test:single": "playwright test --grep",
     "test:e2e": "playwright test --grep 'e2e'",
     "start": "nodemon ./src/app.js",
+    "test:login": "playwright test --grep 'login'",
     "report": "npx playwright show-report"
   },
   "keywords": [],

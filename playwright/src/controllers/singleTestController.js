@@ -10,18 +10,18 @@ export const runSingleTest = async (req, res) => {
 
     if (results.success) {
       res.status(200).json({
-        message: `Single test '${test}' ejecutado correctamente.`,
+        message: `Tests executed successfully`,
         reportUrl: reportUrl,
       });
     } else {
       res.status(500).json({
-        message: `Single test '${test}' ejecutado con errores.`,
+        message: `Tests executed with errors`,
         reportUrl: reportUrl,
       });
     }
   } catch (error) {
     res.status(500).json({
-      message: 'Error inesperado al ejecutar el single test.',
+      message: 'Unexpected error in test execution',
       error: error.message,
     });
   }

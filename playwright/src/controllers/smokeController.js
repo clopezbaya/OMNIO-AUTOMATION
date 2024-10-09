@@ -8,18 +8,18 @@ export const runSmokeTests = async (req, res) => {
 
     if (results.success) {
       res.status(200).json({
-        message: 'Smoke tests ejecutados correctamente.',
+        message: 'Tests executed successfully',
         reportUrl: reportUrl,
       });
     } else {
       res.status(500).json({
-        message: 'Smoke tests ejecutados con errores.',
+        message: 'Tests executed with errors',
         reportUrl: reportUrl,
       });
     }
   } catch (error) {
     res.status(500).json({
-      message: 'Error inesperado al ejecutar los smoke tests.',
+      message: 'Unexpected error in test execution',
       error: error.message,
     });
   }

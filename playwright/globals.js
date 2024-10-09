@@ -40,6 +40,10 @@ export const globals = {
     USERNAME: 'oms3',
     PASSWORD: 'shipedge12345.',
   },
+  LOGIN_ADMIN_OMNIO: {
+    USERNAME: 'admin@shipedge.com',
+    PASSWORD: 'Admin123',
+  },
   COMPANY_TEST: {
     FIRST_NAME: 'David',
     LAST_NAME: 'Pizarro Villca',

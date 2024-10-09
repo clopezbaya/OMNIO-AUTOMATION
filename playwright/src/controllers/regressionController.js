@@ -8,18 +8,18 @@ export const runRegressionTests = async (req, res) => {
 
     if (results.success) {
       res.status(200).json({
-        message: 'Regression tests ejecutados correctamente.',
+        message: `Tests executed successfully`,
         reportUrl: reportUrl,
       });
     } else {
       res.status(500).json({
-        message: 'Regression tests ejecutados con errores.',
+        message: `Tests executed with errors`,
         reportUrl: reportUrl,
       });
     }
   } catch (error) {
     res.status(500).json({
-      message: 'Error inesperado al ejecutar los regression tests.',
+      message: 'Unexpected error in test execution',
       error: error.message,
     });
   }
