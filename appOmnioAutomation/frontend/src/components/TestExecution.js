@@ -17,6 +17,7 @@ const TestEjecution = () => {
 
     try {
       const response = await axios.get(`/${testType}`);
+      console.log(response.data);
       setMessage(response.data.message);
       setResult(response.data.results || response.data.error);
       setError('');

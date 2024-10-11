@@ -22,12 +22,15 @@ exports.runTestLogin = async (req, res) => {
     res.status(200).json({
       message: 'Tests executed successfully',
       results: response.data.reportUrl,
+      reportJSON: response.data.reportJSON,
     });
   } catch (error) {
     console.error('Error to init tests', error.message);
     res.status(200).json({
       message: 'Tests executed with errors',
-      error: error.response?.data?.reportUrl,
+      results: error.response?.data?.reportUrl,
+      reportJSON: error.response?.data?.reportJSON,
+      error: error.response?.data?.message,
     });
   }
 };

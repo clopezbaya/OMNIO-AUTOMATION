@@ -14,7 +14,7 @@ test.beforeAll(async ({ browser }) => {
   test.describe('Logout to Omnio', () => {
     test('smoke: Verify the correct logout to Omnio', async () => {
       await test.step('Login to Omnio', async () => {
-        await login(page, 'admin@shipedge.com', 'Admin123');
+        await login(page, 'aadmin@shipedge.com', 'Admin123');
         await page.waitForURL(globals.DASHBOARD_ADMIN_URL);
         expect(page.url()).toBe(globals.DASHBOARD_ADMIN_URL);
       });

@@ -6,7 +6,6 @@
   "scripts": {
     "test:smoke": "playwright test --grep 'smoke'",
     "test:regression": "playwright test --grep 'regression'",
-    "test:single": "playwright test --grep",
     "test:e2e": "playwright test --grep 'e2e'",
     "start": "nodemon ./src/app.js",
     "test:login": "playwright test --grep 'login'",
