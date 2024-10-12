@@ -3,5 +3,5 @@ const { runTestController } = require('../testController'); // Asegúrate de que
 // Controlador para ejecutar pruebas de humo
 exports.runTestRegresion = (req, res) => {
   const playwrightServiceUrl = 'http://localhost:3002/regression';
-  return runTestController(playwrightServiceUrl, res, 'Regression');
+  return runTestController(playwrightServiceUrl, req, res, 'Regression');
 };

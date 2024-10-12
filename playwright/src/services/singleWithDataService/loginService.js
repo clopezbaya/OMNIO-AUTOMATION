@@ -2,8 +2,13 @@ import { globals } from '../../../globals.js';
 import { runTest } from '../../utils/testRunner.js';
 
 export const runLoginTestService = async (req) => {
-  const username = req.username || globals.LOGIN_ADMIN_OMNIO.USERNAME;
-  const password = req.password || globals.LOGIN_ADMIN_OMNIO.PASSWORD;
+  let username = req.body.username;
+  let password = req.body.password;
+
+  if (!username || !password) {
+    username = globals.LOGIN_ADMIN_OMNIO.USERNAME;
+    password = globals.LOGIN_ADMIN_OMNIO.PASSWORD;
+  }
 
   return await runTest('npm', ['run', 'test:login'], {
     env: {
