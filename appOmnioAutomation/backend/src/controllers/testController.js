@@ -60,7 +60,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
     );
 
     // Responde con el mensaje de error
-    res.status(500).json({
+    res.status(200).json({
       message: 'Tests executed with errors',
       results: error.response?.data?.reportUrl,
       reportJSON: reportJSON,

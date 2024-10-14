@@ -1,5 +1,5 @@
+// History.js
 import React, { useState } from 'react';
-import TopMenu from './TopMenu';
 import {
   Table,
   Thead,
@@ -25,7 +25,7 @@ import {
 
 ChartJS.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale);
 
-const HistoryExecution = () => {
+function History() {
   // Datos de ejemplo para el historial de ejecución
   const historyData = [
     {
@@ -129,10 +129,9 @@ const HistoryExecution = () => {
 
   return (
     <div>
-      <TopMenu />
       <Box p={5}>
-        <Heading as='h3' size='lg' mb={5}>
-          History of Test Executions
+        <Heading textAlign='center' mb={8} size='2xl' color='teal.500'>
+          History Execution
         </Heading>
 
         {/* Barra de búsqueda */}
@@ -180,6 +179,6 @@ const HistoryExecution = () => {
       </Box>
     </div>
   );
-};
+}
 
-export default HistoryExecution;
+export default History;

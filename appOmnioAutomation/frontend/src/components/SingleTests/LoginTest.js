@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import ResultMessage from '../ResultMessage';
 import axios from 'axios';
 import {
   Box,
@@ -30,6 +31,7 @@ function LoginForm() {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState('');
   const [result, setResult] = useState('');
+  const [error, setError] = useState(''); // Estado para manejar errores
   const [loading, setLoading] = useState(false); // Estado para manejar la carga
 
   const handleClick = () => setShow(!show);
@@ -39,6 +41,7 @@ function LoginForm() {
     setPassword('');
     setMessage('');
     setResult('');
+    setError(''); // Limpiar error al abrir el modal
     setLoading(false);
     onOpen();
   };
@@ -57,26 +60,40 @@ function LoginForm() {
       }
     }
 
-    const loginData = { username, password }; // Aquí no se envían campos vacíos
+    const loginData = {
+      username,
+      password,
+      environment: {
+        name: '',
+        description: '',
+      },
+    }; // Aquí no se envían campos vacíos
 
     setLoading(true);
+    setError(''); // Limpiar errores previos
 
     try {
       const response = await axios.post('/login', loginData);
       setMessage(response.data.message);
       setResult(response.data.results || response.data.error);
+      setError('');
 
       // Hacer que los mensajes desaparezcan después de 10 segundos
       setTimeout(() => {
         setMessage('');
         setResult('');
+        setError('');
       }, 10000);
-    } catch (error) {
-      console.error('There was an error!', error);
-      setMessage('Login failed!');
+    } catch (err) {
+      console.error('There was an error!', err);
+      setMessage('Login failed!'); // Mensaje de error específico
+      setResult('');
+      setError(err.response?.data?.error || 'An error occurred'); // Manejo de errores
+
+      // Mensaje de error desaparece después de 5 segundos
       setTimeout(() => {
-        setMessage('');
-      }, 5000); // Mensaje de error desaparece después de 10 segundos
+        setError('');
+      }, 5000);
     } finally {
       setLoading(false);
       onClose();
@@ -86,7 +103,13 @@ function LoginForm() {
   return (
     <div>
       <Center>
-        <Button colorScheme='orange' onClick={handleOpen}>
+        <Button
+          colorScheme='teal'
+          variant='outline'
+          mt={2}
+          w='full'
+          onClick={handleOpen}
+        >
           Login Test
         </Button>
         <Modal
@@ -97,11 +120,13 @@ function LoginForm() {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Enter Test Data</ModalHeader>
+            <ModalHeader color='teal.600' fontWeight='bold'>
+              Enter Test Data
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl>
-                <FormLabel>Username (Email)</FormLabel>
+                <FormLabel color='gray.600'>Username (Email)</FormLabel>
                 <Input
                   ref={initialRef}
                   placeholder='Email'
@@ -111,7 +136,7 @@ function LoginForm() {
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Password</FormLabel>
+                <FormLabel color='gray.600'>Password</FormLabel>
                 <InputGroup size='md'>
                   <Input
                     pr='4.5rem'
@@ -121,7 +146,14 @@ function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputRightElement width='4.5rem'>
-                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                    <Button
+                      colorScheme='teal'
+                      variant='outline'
+                      mt={2}
+                      h='1.75rem'
+                      size='sm'
+                      onClick={handleClick}
+                    >
                       {show ? 'Hide' : 'Show'}
                     </Button>
                   </InputRightElement>
@@ -134,60 +166,47 @@ function LoginForm() {
                   <Box mt={2}>Waiting while tests are executed...</Box>
                 </Center>
               )}
+
+              {error && (
+                <Center mt={4}>
+                  <Box
+                    bg='red.400'
+                    w='100%'
+                    p={4}
+                    color='white'
+                    textAlign='center'
+                  >
+                    {error}
+                  </Box>
+                </Center>
+              )}
             </ModalBody>
 
             <ModalFooter>
               <Button
-                colorScheme='blue'
+                colorScheme='teal'
+                variant='outline'
+                mt={2}
                 mr={3}
                 onClick={handleSubmit}
                 isDisabled={loading}
               >
                 {loading ? 'Testing...' : 'Init Test'}
               </Button>
-              <Button onClick={onClose} isDisabled={loading}>
+              <Button
+                colorScheme='teal'
+                variant='outline'
+                mt={2}
+                onClick={onClose}
+                isDisabled={loading}
+              >
                 Cancel
               </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
       </Center>
-
-      {message && (
-        <Center mt={4}>
-          <Box
-            bg={
-              message === 'Tests executed successfully'
-                ? 'green.400'
-                : message === 'Tests executed with errors'
-                ? 'red.400'
-                : 'tomato'
-            }
-            w='100%'
-            p={4}
-            color='white'
-            textAlign='center'
-          >
-            {message}
-          </Box>
-        </Center>
-      )}
-
-      {result && (
-        <Center mt={4}>
-          <Box bg='blue.400' w='100%' p={4} color='white' textAlign='center'>
-            {`Report : `}
-            <a
-              href={result}
-              target='_blank'
-              rel='noopener noreferrer'
-              style={{ color: 'white', textDecoration: 'underline' }}
-            >
-              {result}
-            </a>
-          </Box>
-        </Center>
-      )}
+      <ResultMessage message={message} error={error} result={result} />
     </div>
   );
 }
