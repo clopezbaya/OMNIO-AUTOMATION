@@ -21,7 +21,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 
-function LoginForm() {
+function LoginForm({ environment }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -64,8 +64,7 @@ function LoginForm() {
       username,
       password,
       environment: {
-        name: '',
-        description: '',
+        name: environment,
       },
     }; // Aquí no se envían campos vacíos
 
@@ -102,110 +101,107 @@ function LoginForm() {
 
   return (
     <div>
-      <Center>
-        <Button
-          colorScheme='teal'
-          variant='outline'
-          mt={2}
-          w='full'
-          onClick={handleOpen}
-        >
-          Login Test
-        </Button>
-        <Modal
-          initialFocusRef={initialRef}
-          finalFocusRef={finalRef}
-          isOpen={isOpen}
-          onClose={onClose}
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader color='teal.600' fontWeight='bold'>
-              Enter Test Data
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pb={6}>
-              <FormControl>
-                <FormLabel color='gray.600'>Username (Email)</FormLabel>
+      <Button
+        colorScheme='teal'
+        variant='outline'
+        w={'full'}
+        onClick={handleOpen}
+      >
+        Login Test
+      </Button>
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color='teal.600' fontWeight='bold'>
+            Enter Test Data
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel color='gray.600'>Username (Email)</FormLabel>
+              <Input
+                ref={initialRef}
+                placeholder='Email'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel color='gray.600'>Password</FormLabel>
+              <InputGroup size='md'>
                 <Input
-                  ref={initialRef}
-                  placeholder='Email'
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  pr='4.5rem'
+                  type={show ? 'text' : 'password'}
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-              </FormControl>
-
-              <FormControl mt={4}>
-                <FormLabel color='gray.600'>Password</FormLabel>
-                <InputGroup size='md'>
-                  <Input
-                    pr='4.5rem'
-                    type={show ? 'text' : 'password'}
-                    placeholder='Enter password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <InputRightElement width='4.5rem'>
-                    <Button
-                      colorScheme='teal'
-                      variant='outline'
-                      mt={2}
-                      h='1.75rem'
-                      size='sm'
-                      onClick={handleClick}
-                    >
-                      {show ? 'Hide' : 'Show'}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-
-              {loading && (
-                <Center mt={4}>
-                  <Spinner size='lg' />
-                  <Box mt={2}>Waiting while tests are executed...</Box>
-                </Center>
-              )}
-
-              {error && (
-                <Center mt={4}>
-                  <Box
-                    bg='red.400'
-                    w='100%'
-                    p={4}
-                    color='white'
-                    textAlign='center'
+                <InputRightElement width='4.5rem'>
+                  <Button
+                    colorScheme='teal'
+                    variant='outline'
+                    mt={2}
+                    h='1.75rem'
+                    size='sm'
+                    onClick={handleClick}
                   >
-                    {error}
-                  </Box>
-                </Center>
-              )}
-            </ModalBody>
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
 
-            <ModalFooter>
-              <Button
-                colorScheme='teal'
-                variant='outline'
-                mt={2}
-                mr={3}
-                onClick={handleSubmit}
-                isDisabled={loading}
-              >
-                {loading ? 'Testing...' : 'Init Test'}
-              </Button>
-              <Button
-                colorScheme='teal'
-                variant='outline'
-                mt={2}
-                onClick={onClose}
-                isDisabled={loading}
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Center>
+            {loading && (
+              <Center mt={4}>
+                <Spinner size='lg' />
+                <Box mt={2}>Waiting while tests are executed...</Box>
+              </Center>
+            )}
+
+            {error && (
+              <Center mt={4}>
+                <Box
+                  bg='red.400'
+                  w='100%'
+                  p={4}
+                  color='white'
+                  textAlign='center'
+                >
+                  {error}
+                </Box>
+              </Center>
+            )}
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme='teal'
+              variant='outline'
+              mt={2}
+              mr={3}
+              onClick={handleSubmit}
+              isDisabled={loading}
+            >
+              {loading ? 'Testing...' : 'Init Test'}
+            </Button>
+            <Button
+              colorScheme='teal'
+              variant='outline'
+              mt={2}
+              onClick={onClose}
+              isDisabled={loading}
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <ResultMessage message={message} error={error} result={result} />
     </div>
   );

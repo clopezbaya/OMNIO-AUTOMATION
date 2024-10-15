@@ -21,7 +21,6 @@ const ResultMessage = ({ message, error, result }) => {
       {result && (
         <Center mt={4}>
           <Box bg='blue.400' w='100%' p={4} color='white' textAlign='center'>
-            {`Report: `}
             <a
               href={result}
               target='_blank'

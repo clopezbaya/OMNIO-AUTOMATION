@@ -23,7 +23,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
     }
     const response = await (testType == 'single'
       ? axios.post(serviceUrl, req.body)
-      : axios.get(serviceUrl));
+      : axios.post(serviceUrl));
     const reportJSON = response.data.reportJSON;
 
     // Guarda el TestResult en caso de éxito
