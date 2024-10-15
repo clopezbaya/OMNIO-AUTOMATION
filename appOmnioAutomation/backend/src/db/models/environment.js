@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const EnvironmentSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String },
   description: { type: String },
   tests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TestResult' }],
 });

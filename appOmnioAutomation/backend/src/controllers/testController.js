@@ -23,7 +23,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
     }
     const response = await (testType == 'single'
       ? axios.post(serviceUrl, req.body)
-      : axios.get(serviceUrl));
+      : axios.post(serviceUrl));
     const reportJSON = response.data.reportJSON;
 
     // Guarda el TestResult en caso de éxito
@@ -60,7 +60,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
     );
 
     // Responde con el mensaje de error
-    res.status(500).json({
+    res.status(200).json({
       message: 'Tests executed with errors',
       results: error.response?.data?.reportUrl,
       reportJSON: reportJSON,
