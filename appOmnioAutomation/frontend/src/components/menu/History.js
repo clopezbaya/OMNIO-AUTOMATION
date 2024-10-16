@@ -124,15 +124,19 @@ function History() {
       <Heading textAlign='center' mb={4} color='teal.500' as='h2' size='xl'>
         Test History
       </Heading>
-      <Input
-        placeholder='Search by test name, status, or environment'
-        value={searchTerm}
-        onChange={handleSearchChange}
-        mb={4}
-      />
-      <Table variant='simple'>
+      {/* Barra de búsqueda */}
+      <Stack spacing={4} mb={5}>
+        <Input
+          placeholder='Search by test name or status...'
+          value={searchTerm}
+          onChange={handleSearchChange}
+          size='md'
+          focusBorderColor='yellow.500'
+        />
+      </Stack>
+      <Table variant='striped' colorScheme='none'>
         <Thead>
-          <Tr>
+          <Tr bg='gray.300'>
             <Th>TEST NAME</Th>
             <Th>ENVIRONMENT</Th>
             <Th>STATUS</Th>
