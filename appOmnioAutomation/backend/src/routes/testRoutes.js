@@ -3,7 +3,8 @@ const smokeController = require('../controllers/suiteController/smokeController.
 const regressionController = require('../controllers/suiteController/regressionController.js');
 const e2eController = require('../controllers/suiteController/e2eController');
 const loginController = require('../controllers/singleWithDataController/loginController.js');
-const environmentController = require('../controllers/environmentController.js');
+const environmentController = require('../controllers/dbControllers/environmentController.js');
+const testResultsController = require('../controllers/dbControllers/testResultsController.js');
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.post('/login', loginController.runTestLogin);
 //DB
 router.post('/environment', environmentController.createEnvironment);
 router.get('/environments', environmentController.getEnvironments);
+router.get('/testResults', testResultsController.getResults);
 
 module.exports = router;

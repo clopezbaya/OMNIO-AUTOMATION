@@ -1,4 +1,4 @@
-const Environment = require('../db/models/environment');
+const Environment = require('../../db/models/environment');
 
 exports.createEnvironment = async (req, res) => {
   const { name, description } = req.body;

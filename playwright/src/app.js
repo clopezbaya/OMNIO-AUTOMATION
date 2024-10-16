@@ -23,3 +23,5 @@ app.use(
 app.listen(PORT, () => {
   console.log(`Automation framework is running on port ${PORT}`);
 });
+
+//app.keepAliveTimeout = 120 * 1000;

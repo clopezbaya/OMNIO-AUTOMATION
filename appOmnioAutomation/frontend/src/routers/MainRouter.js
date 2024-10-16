@@ -17,7 +17,15 @@ const MainRouter = () => {
   return (
     <BrowserRouter>
       {/* Botón para abrir el Sidebar */}
-      <Button onClick={toggleSidebar} position='fixed' top='10px' left='10px'>
+      <Button
+        w='10%'
+        size='lg'
+        colorScheme='teal'
+        onClick={toggleSidebar}
+        position='fixed'
+        top='10px'
+        left='10px'
+      >
         Menu
       </Button>
 
