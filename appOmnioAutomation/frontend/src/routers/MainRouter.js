@@ -33,7 +33,7 @@ const MainRouter = () => {
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
 
       {/* Contenedor principal para las rutas */}
-      <Box ml={isSidebarOpen ? '250px' : '0'} p={4} backgroundColor='gray.100'>
+      <Box ml={isSidebarOpen ? '250px' : '0'} p={4}>
         <Routes>
           <Route path='/' element={<ExecuteTestCases />} />
           <Route path='/History' element={<History />} />

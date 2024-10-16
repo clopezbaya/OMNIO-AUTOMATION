@@ -119,6 +119,11 @@ function History() {
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+  // Colores para las filas de la tabla
+  const getStatusColor = (status) => {
+    return status === 'Passed' ? 'gray.100' : 'gray.200'; // Color plomo para filas
+  };
+
   return (
     <Box>
       <Heading textAlign='center' mb={4} color='teal.500' as='h2' size='xl'>
@@ -131,12 +136,12 @@ function History() {
           value={searchTerm}
           onChange={handleSearchChange}
           size='md'
-          focusBorderColor='yellow.500'
+          focusBorderColor='teal.500'
         />
       </Stack>
       <Table variant='striped' colorScheme='none'>
         <Thead>
-          <Tr bg='gray.300'>
+          <Tr bg='gray.400'>
             <Th>TEST NAME</Th>
             <Th>ENVIRONMENT</Th>
             <Th>STATUS</Th>
@@ -145,7 +150,7 @@ function History() {
         </Thead>
         <Tbody>
           {paginatedData.map((item, index) => (
-            <Tr key={index}>
+            <Tr key={index} bg={getStatusColor(item.status)}>
               <Td>{item.testName}</Td>
               <Td>{item.environment}</Td>
               <Td>
