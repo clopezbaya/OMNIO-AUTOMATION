@@ -42,6 +42,14 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </Button>
               </Link>
             </Box>
+            <Box w='100%'>
+              {/* Link para ir a HistoryExecution */}
+              <Link to='/Environments' onClick={onClose}>
+                <Button w='100%' size='lg' colorScheme='teal' variant='outline'>
+                  Environments
+                </Button>
+              </Link>
+            </Box>
           </VStack>
         </DrawerBody>
       </DrawerContent>

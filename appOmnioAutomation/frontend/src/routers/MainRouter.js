@@ -5,6 +5,7 @@ import Sidebar from '../components/menu/Sidebar';
 import { Box, Button } from '@chakra-ui/react';
 import ExecuteTestCases from '../components/menu/ExecuteTestCases';
 import History from '../components/menu/History';
+import Environments from '../components/menu/Environments';
 
 const MainRouter = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false); // Estado para controlar el Sidebar
@@ -37,6 +38,7 @@ const MainRouter = () => {
         <Routes>
           <Route path='/' element={<ExecuteTestCases />} />
           <Route path='/History' element={<History />} />
+          <Route path='/Environments' element={<Environments />} />
           <Route path='/*' element={<ErrorPath />} />
         </Routes>
       </Box>

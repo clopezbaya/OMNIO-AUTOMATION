@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Table,
   Thead,
@@ -13,6 +13,14 @@ import {
   Tag,
   Button,
   HStack,
+  IconButton,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useToast, // Importar useToast
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
@@ -24,6 +32,7 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js';
+import { FaTrashAlt } from 'react-icons/fa'; // Importar ícono de basurero
 
 ChartJS.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale);
 
@@ -32,14 +41,16 @@ function History() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 5;
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedReportId, setSelectedReportId] = useState(null);
+  const cancelRef = useRef();
+  const toast = useToast(); // Inicializar toast
 
-  // Recuperar los datos desde el backend con axios
   useEffect(() => {
     const fetchData = async () => {
       try {
         const environmentResponse = await axios.get('/environments');
         const testResultsResponse = await axios.get('/testResults');
-
         const environments = environmentResponse.data;
         const testResults = testResultsResponse.data;
 
@@ -60,6 +71,7 @@ function History() {
                     environment: env.name,
                     status: status,
                     date: new Date(test.date).toLocaleString(),
+                    id: test._id, // Añadir el id para identificar el test
                   };
                 }
                 return null;
@@ -76,13 +88,38 @@ function History() {
     fetchData();
   }, []);
 
-  // Función para manejar el cambio en la barra de búsqueda
+  const openDeleteConfirmation = (id) => {
+    setSelectedReportId(id);
+    setIsOpen(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/testResults/${selectedReportId}`);
+      setHistoryData(
+        historyData.filter((item) => item.id !== selectedReportId)
+      );
+
+      // Mostrar el mensaje de confirmación
+      toast({
+        title: 'Report deleted.',
+        description: 'The report has been successfully deleted.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error('Error deleting report:', error);
+    } finally {
+      setIsOpen(false); // Cerrar el cuadro de diálogo después de eliminar
+    }
+  };
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     setCurrentPage(0); // Resetear a la primera página al buscar
   };
 
-  // Filtrar los datos del historial basados en el término de búsqueda
   const filteredData = historyData.filter(
     (item) =>
       item.testName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -90,13 +127,11 @@ function History() {
       item.environment.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Paginar los datos filtrados
   const paginatedData = filteredData.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
 
-  // Contar cuántos pasaron y cuántos fallaron
   const testResults = filteredData.reduce(
     (acc, item) => {
       acc[item.status] = (acc[item.status] || 0) + 1;
@@ -105,7 +140,6 @@ function History() {
     { Passed: 0, Failed: 0 }
   );
 
-  // Datos para las gráficas
   const data = {
     labels: ['Passed', 'Failed'],
     datasets: [
@@ -119,9 +153,8 @@ function History() {
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  // Colores para las filas de la tabla
   const getStatusColor = (status) => {
-    return status === 'Passed' ? 'gray.100' : 'gray.200'; // Color plomo para filas
+    return status === 'Passed' ? 'gray.100' : 'gray.200';
   };
 
   return (
@@ -129,7 +162,6 @@ function History() {
       <Heading textAlign='center' mb={4} color='teal.500' as='h2' size='xl'>
         Test History
       </Heading>
-      {/* Barra de búsqueda */}
       <Stack spacing={4} mb={5}>
         <Input
           placeholder='Search by test name or status...'
@@ -146,6 +178,7 @@ function History() {
             <Th>ENVIRONMENT</Th>
             <Th>STATUS</Th>
             <Th>DATE</Th>
+            <Th>ACTIONS</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -159,6 +192,14 @@ function History() {
                 </Tag>
               </Td>
               <Td>{item.date}</Td>
+              <Td>
+                <IconButton
+                  aria-label='Delete report'
+                  icon={<FaTrashAlt />}
+                  colorScheme='red'
+                  onClick={() => openDeleteConfirmation(item.id)}
+                />
+              </Td>
             </Tr>
           ))}
         </Tbody>
@@ -185,6 +226,35 @@ function History() {
         </Heading>
         <Bar data={data} />
       </Box>
+
+      {/* Cuadro de confirmación */}
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={() => setIsOpen(false)}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Confirm Deletion
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure you want to delete this report? This action cannot be
+              undone.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
+                Cancel
+              </Button>
+              <Button colorScheme='red' onClick={handleDelete} ml={3}>
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Box>
   );
 }
