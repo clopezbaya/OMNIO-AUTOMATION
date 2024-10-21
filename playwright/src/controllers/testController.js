@@ -2,9 +2,7 @@ import { getReportUrl, getReportJson } from '../utils/responseHelper.js';
 
 export const runTests = async (testService, req, res, flag) => {
   try {
-    const results = await (flag == 'single'
-      ? testService(req.body)
-      : testService());
+    const results = await (flag == 'single' ? testService(req) : testService());
     const reportUrl = await getReportUrl(req);
     const reportJSON = await getReportJson();
 
