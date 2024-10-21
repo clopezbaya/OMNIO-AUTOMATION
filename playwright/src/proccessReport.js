@@ -1,6 +1,6 @@
-import fs from 'fs/promises'; // Asegúrate de usar fs/promises para funciones asíncronas
+import fs from 'fs/promises';
 import path from 'path';
-import { fileURLToPath } from 'url'; // Para obtener __dirname en un módulo ES
+import { fileURLToPath } from 'url';
 
 // Obtener __filename y __dirname en un módulo ES
 const __filename = fileURLToPath(import.meta.url);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Modal,
@@ -10,46 +10,54 @@ import {
   Input,
   useDisclosure,
   Center,
+  useToast, // Importar useToast
 } from '@chakra-ui/react';
-import { useState } from 'react';
 import axios from 'axios';
-import ResultMessage from './ResultMessage';
 
 const Environment = ({ onNewEnvironment }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [message, setMessage] = useState('');
-  const [result, setResult] = useState('');
-  const [error, setError] = useState('');
+  const toast = useToast(); // Inicializar useToast
 
   const handleCreateEnv = async () => {
     if (!name) {
       window.alert('The environment name is required..!');
       return;
     }
+
     const environment = {
       name,
       description,
     };
 
     try {
-      const response = await axios.post('/environment', environment);
-      setMessage(response.data.message);
-      setResult(`Name: ${environment.name}`);
+      await axios.post('/environment', environment);
       onNewEnvironment();
       onClose();
 
-      // Hacer que los mensajes desaparezcan después de 10 segundos
-      setTimeout(() => {
-        setMessage('');
-        setResult('');
-      }, 5000);
+      // Mostrar mensaje de confirmación
+      toast({
+        title: 'Environment created.',
+        description: `The environment "${environment.name}" has been created successfully.`,
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
     } catch (err) {
       console.error('There was an error!', err);
-      window.alert(err.response?.data?.message);
+
+      // Mostrar mensaje de error en caso de falla
+      toast({
+        title: 'Error creating environment.',
+        description: err.response?.data?.message || 'There was an error.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
+
   return (
     <div>
       {/* Botón para crear un nuevo ambiente */}
@@ -85,9 +93,6 @@ const Environment = ({ onNewEnvironment }) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Center>
-        <ResultMessage message={message} error={error} result={result} />
-      </Center>
     </div>
   );
 };

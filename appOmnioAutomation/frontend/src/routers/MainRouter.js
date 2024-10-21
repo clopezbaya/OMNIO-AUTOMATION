@@ -5,6 +5,7 @@ import Sidebar from '../components/menu/Sidebar';
 import { Box, Button } from '@chakra-ui/react';
 import ExecuteTestCases from '../components/menu/ExecuteTestCases';
 import History from '../components/menu/History';
+import Environments from '../components/menu/Environments';
 
 const MainRouter = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false); // Estado para controlar el Sidebar
@@ -17,7 +18,15 @@ const MainRouter = () => {
   return (
     <BrowserRouter>
       {/* Botón para abrir el Sidebar */}
-      <Button onClick={toggleSidebar} position='fixed' top='10px' left='10px'>
+      <Button
+        w='10%'
+        size='lg'
+        colorScheme='teal'
+        onClick={toggleSidebar}
+        position='fixed'
+        top='10px'
+        left='10px'
+      >
         Menu
       </Button>
 
@@ -25,10 +34,11 @@ const MainRouter = () => {
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
 
       {/* Contenedor principal para las rutas */}
-      <Box ml={isSidebarOpen ? '250px' : '0'} p={4} backgroundColor='gray.100'>
+      <Box ml={isSidebarOpen ? '250px' : '0'} p={4}>
         <Routes>
           <Route path='/' element={<ExecuteTestCases />} />
           <Route path='/History' element={<History />} />
+          <Route path='/Environments' element={<Environments />} />
           <Route path='/*' element={<ErrorPath />} />
         </Routes>
       </Box>
