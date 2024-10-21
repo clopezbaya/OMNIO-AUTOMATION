@@ -32,7 +32,9 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js';
-import { FaTrashAlt } from 'react-icons/fa'; // Importar ícono de basurero
+import { DeleteIcon, ViewIcon } from '@chakra-ui/icons';
+import TestResultsModal from './TestResultModal';
+//import { FaTrashAlt, FaViewIcon } from 'react-icons/fa'; // Importar ícono de basurero
 
 ChartJS.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale);
 
@@ -42,6 +44,8 @@ function History() {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 5;
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTestId, setSelectedTestId] = useState(null);
   const [selectedReportId, setSelectedReportId] = useState(null);
   const cancelRef = useRef();
   const toast = useToast(); // Inicializar toast
@@ -66,12 +70,17 @@ function History() {
                       : 'Failed'
                     : 'Unknown';
 
+                  // Formatear la fecha solo con el día, mes y año (sin la hora)
+                  const date = new Date(test.date);
+                  const formattedDate = date.toLocaleDateString();
+
                   return {
                     testName: test.testType,
                     environment: env.name,
                     status: status,
-                    date: new Date(test.date).toLocaleString(),
-                    id: test._id, // Añadir el id para identificar el test
+                    date: date, // Almacenar el objeto Date para ordenarlo
+                    formattedDate: formattedDate, // Solo para mostrar
+                    id: test._id,
                   };
                 }
                 return null;
@@ -80,7 +89,10 @@ function History() {
           })
           .flat();
 
-        setHistoryData(mappedData);
+        // Ordenar por fecha descendente
+        const sortedData = mappedData.sort((a, b) => b.date - a.date);
+
+        setHistoryData(sortedData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -118,6 +130,11 @@ function History() {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     setCurrentPage(0); // Resetear a la primera página al buscar
+  };
+
+  const openTestResultsModal = (testId) => {
+    setSelectedTestId(testId);
+    setIsModalOpen(true);
   };
 
   const filteredData = historyData.filter(
@@ -191,12 +208,23 @@ function History() {
                   {item.status}
                 </Tag>
               </Td>
-              <Td>{item.date}</Td>
+              <Td>{item.formattedDate}</Td>{' '}
+              {/* Mostrar solo la fecha formateada */}
               <Td>
+                {item.testName !== 'Single' && (
+                  <IconButton
+                    aria-label='View report'
+                    icon={<ViewIcon />}
+                    colorScheme='yellow'
+                    m={2}
+                    onClick={() => openTestResultsModal(item.id)}
+                  />
+                )}
                 <IconButton
                   aria-label='Delete report'
-                  icon={<FaTrashAlt />}
+                  icon={<DeleteIcon />}
                   colorScheme='red'
+                  m={2}
                   onClick={() => openDeleteConfirmation(item.id)}
                 />
               </Td>
@@ -204,6 +232,14 @@ function History() {
           ))}
         </Tbody>
       </Table>
+
+      {/* Aquí puedes agregar el componente TestResultsModal */}
+      <TestResultsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        selectedTestId={selectedTestId}
+      />
+
       <HStack mt={4} justifyContent='space-between'>
         <Button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
@@ -220,6 +256,7 @@ function History() {
           Next
         </Button>
       </HStack>
+
       <Box mt={8}>
         <Heading textAlign='center' mb={4} color='teal.500' as='h2' size='xl'>
           Test Results Chart
@@ -238,12 +275,10 @@ function History() {
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
               Confirm Deletion
             </AlertDialogHeader>
-
             <AlertDialogBody>
               Are you sure you want to delete this report? This action cannot be
               undone.
             </AlertDialogBody>
-
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
                 Cancel

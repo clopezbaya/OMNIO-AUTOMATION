@@ -21,7 +21,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
         environmentId = environmentDoc._id; // Asignar el ID del entorno existente
       }
     }
-    const response = await (testType == 'single'
+    const response = await (testType == 'Single'
       ? axios.post(serviceUrl, req.body)
       : axios.post(serviceUrl));
     const reportJSON = response.data.reportJSON;

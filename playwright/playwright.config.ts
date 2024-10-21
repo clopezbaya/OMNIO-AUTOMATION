@@ -11,7 +11,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 30000,
+  timeout: 20000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -32,7 +32,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://omnio04.shipedge.com/',
 
-    headless: false,
+    headless: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
 
