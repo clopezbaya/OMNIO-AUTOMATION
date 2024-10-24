@@ -1,31 +1,23 @@
-import { test, expect, BrowserContext, Page } from '@playwright/test';
-import { login, logoutAdmin } from '../helpers/authAdminHelper';
+import { expect } from '@playwright/test';
+import { test } from '../fixtures';
+import { logoutAdmin } from '../helpers/authAdminHelper';
+import { closeBrowserIfNoTests } from '../../setupContext/context';
 import { globals } from '../../globals';
 
-let browserContext: BrowserContext;
-let page: Page;
-
-test.beforeAll(async ({ browser }) => {
-  browserContext = await browser.newContext();
-  page = await browserContext.newPage();
-});
-
-(async () => {
-  test.describe('Logout to Omnio', () => {
-    test('smoke: Verify the correct logout to Omnio', async () => {
-      await test.step('Login to Omnio', async () => {
-        await login(page, 'aadmin@shipedge.com', 'Admin123');
-        await page.waitForURL(globals.DASHBOARD_ADMIN_URL);
-        expect(page.url()).toBe(globals.DASHBOARD_ADMIN_URL);
-      });
-
-      await test.step('Logout to Omnio', async () => {
-        await logoutAdmin(page);
-        await page.waitForURL(globals.LOGIN_URL);
-        expect(page.url()).toBe(globals.LOGIN_URL);
-        await page.close();
-        await browserContext.close();
-      });
-    });
+test.describe('Logout to Omnio', () => {
+  test.afterAll(async () => {
+    await closeBrowserIfNoTests();
   });
-})();
+
+  test('smoke: Verify the correct logout to Omnio', async ({
+    page,
+    isLoggedIn,
+    setLoggedIn,
+  }) => {
+    expect(isLoggedIn).toBe(true);
+    await logoutAdmin(page);
+    await page.waitForURL(globals.LOGIN_URL);
+    expect(page.url()).toBe(globals.LOGIN_URL);
+    setLoggedIn(false);
+  });
+});
