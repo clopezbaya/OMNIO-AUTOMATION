@@ -58,4 +58,10 @@ export const globals = {
     PHONE: 85839284,
     POSTAL_CODE: 14611,
   },
+  // FLAG_TESTS: {
+  //   ISLOGIN: FALSE,
+  //   ISCOMPANY_REGISTER: FALSE,
+  //   ISWAREHOUSE_REGISTER: FALSE,
+  //   ISCONECTED_COMPANY_ILOC: FALSE,
+  // },
 };
