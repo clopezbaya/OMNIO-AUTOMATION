@@ -3,7 +3,7 @@ import { test } from '../fixtures';
 import { closeBrowserIfNoTests } from '../../setupContext/context';
 import { globals } from '../../globals';
 
-test.describe('smoke: Login to Omnio', () => {
+test.describe('Login to Omnio', () => {
   test.afterAll(async () => {
     await closeBrowserIfNoTests();
   });

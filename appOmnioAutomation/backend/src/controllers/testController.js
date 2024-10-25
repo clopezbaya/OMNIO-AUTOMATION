@@ -1,4 +1,5 @@
 const axios = require('axios');
+const sendReportEmail = require('../sendMail.cjs');
 const { saveTestResult } = require('../db/services/testResultService');
 const Environment = require('../db/models/environment'); // Asegúrate de que el modelo Environment esté importado
 
@@ -6,6 +7,8 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
   console.log(
     `Enviando solicitud al servicio de Playwright para pruebas ${testType}...`
   );
+
+  let resultMail;
 
   let { environment } = req.body;
 
@@ -26,6 +29,8 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
       : axios.post(serviceUrl));
     const reportJSON = response.data.reportJSON;
 
+    resultMail = await sendReportEmail(reportJSON, testType);
+
     // Guarda el TestResult en caso de éxito
     const savedTestId = await saveTestResult(
       testType,
@@ -42,10 +47,12 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
       results: response.data.reportUrl,
       reportJSON: reportJSON,
       savedTestId: savedTestId,
+      resultMail: resultMail,
     });
   } catch (error) {
     // Maneja el caso de error y extrae los detalles del error
     const reportJSON = error.response?.data?.reportJSON || {}; // Puede ser undefined si no viene en la respuesta
+    resultMail = await sendReportEmail(reportJSON, testType);
     const errorMessage =
       error.response?.data?.message || error.message || 'Error inesperado';
 
@@ -66,6 +73,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
       reportJSON: reportJSON,
       error: errorMessage,
       savedTestId: savedTestId,
+      resultMail: resultMail,
     });
   }
 };
