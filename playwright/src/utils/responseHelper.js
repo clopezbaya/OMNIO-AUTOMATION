@@ -9,7 +9,7 @@ export const getReportUrl = (req) => {
 
 export const getReportJson = async () => {
   try {
-    await processReport(); // Asegúrate de que esto se complete antes de leer el archivo
+    await processReport();
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
@@ -19,10 +19,10 @@ export const getReportJson = async () => {
       'formatted-test-results.json'
     );
 
-    const data = await fs.readFile(reportPath, 'utf8'); // Lee el archivo de forma asíncrona
-    return JSON.parse(data); // Devuelve el JSON parseado
+    const data = await fs.readFile(reportPath, 'utf8');
+    return JSON.parse(data);
   } catch (error) {
     console.error('Error al obtener el reporte JSON:', error);
-    throw error; // Vuelve a lanzar el error para que el llamador lo maneje
+    throw error;
   }
 };

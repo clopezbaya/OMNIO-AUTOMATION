@@ -3,11 +3,11 @@ import { test } from '../fixtures';
 import { closeBrowserIfNoTests } from '../../setupContext/context';
 
 (async () => {
-  test.describe('smoke: Register in Omnio', () => {
+  test.describe('Register in Omnio', () => {
     test.afterAll(async () => {
       await closeBrowserIfNoTests();
     });
-    test('Verify the correct Register to Omnio', async ({
+    test('smoke: Verify the correct Register to Omnio', async ({
       isOpenBrowser,
       companyCreated,
     }) => {
