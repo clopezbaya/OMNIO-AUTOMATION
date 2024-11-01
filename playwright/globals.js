@@ -24,7 +24,7 @@ export const globals = {
     CORPORAT_EMAIL: 'test22@gmail.com',
   },
   WAREHOUSE_CONNECTION_DATA: {
-    NAME: 'qa17',
+    NAME: 'qa17 db',
     TYPE_DATA_BASE: 'mysql',
     HOST: 'qa17.shipedge.com',
     PORT: '3306',

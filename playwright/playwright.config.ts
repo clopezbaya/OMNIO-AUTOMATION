@@ -35,7 +35,7 @@ export default defineConfig({
     baseURL: 'https://omnio04.shipedge.com/',
     headless: true,
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'off',
     trace: 'on-first-retry',
     //storageState: 'storageState.json',
   },

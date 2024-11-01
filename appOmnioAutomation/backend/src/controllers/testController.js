@@ -10,6 +10,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
 
   let resultMail;
   let responseMessage;
+  let resultsUrl;
   let reportJSON;
   let savedTestId;
   let errorMessage = null;
@@ -30,6 +31,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
       ? axios.post(serviceUrl, req.body)
       : axios.post(serviceUrl));
     reportJSON = response.data.reportJSON;
+    resultsUrl = response.data.reportUrl;
     responseMessage = 'Tests executed successfully';
 
     // Guarda el TestResult en caso de éxito
@@ -64,7 +66,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
   // Responde al cliente con éxito o error
   res.status(200).json({
     message: responseMessage,
-    results: reportJSON ? reportJSON.reportUrl : undefined,
+    results: resultsUrl,
     reportJSON: reportJSON,
     error: errorMessage,
     savedTestId: savedTestId,

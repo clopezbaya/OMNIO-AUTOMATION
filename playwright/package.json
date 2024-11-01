@@ -12,6 +12,7 @@
     "test:logout": "playwright test --grep 'logout'",
     "test:register": "playwright test --grep 'Register in Omnio'",
     "test:registerW": "playwright test --grep 'Register and Connect Warehouse'",
+    "test:connectW": "playwright test --grep 'Company connect with Shippedge'",
     "report": "npx playwright show-report"
   },
   "keywords": [],
