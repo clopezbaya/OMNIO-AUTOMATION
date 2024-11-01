@@ -127,7 +127,7 @@ const test = base.extend<TestFixtures>({
     if (warehouseCreated) {
       const listWarehousePage = new ListWarehousePage(
         page,
-        globals.WAREHOUSE_CONNECTION_DATA.NAME
+        globals.WAREHOUSE_TEST.NAME
       );
       const warehouseEditPage = new WarehouseEditPage(page);
 

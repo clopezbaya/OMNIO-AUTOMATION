@@ -1,12 +1,15 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-const sendReportEmail = async (reportJSON, flag) => {
-  const processedResults = Array.isArray(reportJSON)
-    ? reportJSON.map((test) => ({
+export const sendReportEmail = async (reportJSON, flag) => {
+  const processedResults = await reportJSON.map(
+    (test) => (
+      console.log(test),
+      {
         Test: test.Test,
         Result: test.result === 'Passed' ? 'Passed' : 'Failed',
-      }))
-    : [];
+      }
+    )
+  );
 
   const tableRows = processedResults
     .map(
@@ -30,31 +33,38 @@ const sendReportEmail = async (reportJSON, flag) => {
     </table>
   `;
 
+  console.log(htmlTable);
+
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'clopezbaya@gmail.com',
       pass: 'gzjbxpjnkofydnne',
     },
+    logger: true,
+    debug: true,
     connectionTimeout: 5000,
     greetingTimeout: 5000,
   });
 
+  console.log('Transporte creado con éxito:', transporter);
+
   const mailOptions = {
     from: 'clopezbaya@gmail.com',
-    to: 'christian.lopez@shipedge.com',
+    to: 'clopezbaya@gmail.com',
     subject: `Resultados de las Pruebas Automatizadas`,
-    html: htmlTable,
+    text: 'test',
   };
+
+  console.log('Mail Options:', mailOptions);
 
   console.log('Preparando para enviar el correo...');
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    return 'Mail sent successfully';
+    console.log('Enviando Correo....');
+    const info = transporter.sendMail(mailOptions);
+    console.log('Correo enviado..', info.response);
   } catch (error) {
-    return 'Error to sent the mail';
+    console.error('Error al enviar correo', error);
   }
 };
-
-module.exports = sendReportEmail;

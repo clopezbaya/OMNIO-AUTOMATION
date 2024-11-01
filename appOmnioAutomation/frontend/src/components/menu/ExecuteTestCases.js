@@ -77,7 +77,7 @@ function ExecuteTestCases() {
   return (
     <Box p={6} backgroundColor='gray.50' minH='100vh'>
       <Heading textAlign='center' mb={8} size='2xl' color='teal.500'>
-        Test Automation OMNIO App
+        Test Automation OMNIO
       </Heading>
       <Stack spacing={4} maxW='600px' mx='auto'>
         <Select
