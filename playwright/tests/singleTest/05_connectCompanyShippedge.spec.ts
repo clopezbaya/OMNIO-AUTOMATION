@@ -22,7 +22,7 @@ test.describe('Company connect with Shippedge', async () => {
   test.afterAll(async () => {
     await closeBrowserIfNoTests();
   });
-  test('smoke: Verify te correct connection Company - Iloc', async ({
+  test('Verify te correct connection Company - Iloc', async ({
     isOpenBrowser,
     companyCreated,
     isLoggedIn,
