@@ -45,6 +45,7 @@ exports.runTestController = async (serviceUrl, req, res, testType) => {
     );
   } catch (error) {
     reportJSON = error.response?.data?.reportJSON || {};
+    resultsUrl = error.response?.data?.reportUrl;
     errorMessage =
       error.response?.data?.message || error.message || 'Error inesperado';
     responseMessage = 'Tests executed with errors';
