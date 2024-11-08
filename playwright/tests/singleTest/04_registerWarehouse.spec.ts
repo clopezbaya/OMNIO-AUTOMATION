@@ -32,7 +32,7 @@ test.describe('Register and Connect Warehouse', () => {
     const dashboardAdmin = new DashAdminPage(page);
     const listWarehousePage = new ListWarehousePage(
       page,
-      globals.WAREHOUSE_CONNECTION_DATA.NAME
+      globals.WAREHOUSE_TEST.NAME
     );
 
     await test.step('Verify correct Warehouse creation', async () => {
