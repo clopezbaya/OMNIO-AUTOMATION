@@ -124,7 +124,7 @@ const test = base.extend<TestFixtures>({
   },
 
   warehouseConnected: async ({ warehouseCreated, page }, use) => {
-    if (warehouseCreated) {
+    if (!warehouseConnected) {
       const listWarehousePage = new ListWarehousePage(
         page,
         globals.WAREHOUSE_TEST.NAME

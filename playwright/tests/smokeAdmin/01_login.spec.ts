@@ -8,7 +8,7 @@ test.describe('Login to Omnio', () => {
     await closeBrowserIfNoTests();
   });
 
-  test('smoke: Verify the correct login to Omnio', async ({
+  test('smokeAdmin: Verify the correct login to Omnio', async ({
     isLoggedIn,
     page,
   }) => {

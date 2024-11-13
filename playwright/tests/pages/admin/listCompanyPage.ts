@@ -24,7 +24,7 @@ export class ListCompanyPage {
       .nth(2);
     this.buttonAssing = page.getByRole('button', { name: 'assign(1)' });
     this.buttonDeleteAssigned = page.getByRole('button', { name: 'Delete' });
-    this.confirmModal = page.getByRole('button', { name: 'Yes' });
+    this.confirmModal = page.getByRole('button', { name: 'Confirm' });
     this.userSelectDropdown = page.getByRole('button', {
       name: 'Users',
       exact: true,

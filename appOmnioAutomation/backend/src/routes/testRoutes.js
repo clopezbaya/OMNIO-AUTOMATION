@@ -8,7 +8,8 @@ const testResultsController = require('../controllers/dbControllers/testResultsC
 
 const router = express.Router();
 //TESTS SUITES
-router.post('/smoke', smokeController.runTestSmoke);
+router.post('/smokeAdmin', smokeController.runTestSmokeAdmin);
+router.post('/smokeUser', smokeController.runTestSmokeUser);
 router.post('/regresion', regressionController.runTestRegresion);
 router.post('/e2e', e2eController.runTestE2E);
 router.post('/login', loginController.runTestLogin);

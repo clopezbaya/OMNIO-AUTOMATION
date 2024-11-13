@@ -4,7 +4,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test:smoke": "playwright test --grep 'smoke'",
+    "test:smokeAdmin": "playwright test --grep 'smokeAdmin'",
+    "test:smokeUser": "playwright test --grep 'smokeUser'",
     "test:regression": "playwright test --grep 'regression'",
     "test:e2e": "playwright test --grep 'e2e'",
     "start": "nodemon ./src/app.js",

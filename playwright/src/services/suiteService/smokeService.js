@@ -1,5 +1,9 @@
 import { runTest } from '../../utils/testRunner.js';
 
-export const runSmokeTestService = async () => {
-  return await runTest('npm', ['run', 'test:smoke']);
+export const runSmokeAdminTestService = async () => {
+  return await runTest('npm', ['run', 'test:smokeAdmin']);
+};
+
+export const runSmokeUserTestService = async () => {
+  return await runTest('npm', ['run', 'test:smokeUser']);
 };

@@ -20,11 +20,6 @@ export async function logoutAdmin(page: Page) {
   await logout.logOut();
 }
 
-export async function logoutUser(page: Page, firstWord: string) {
-  const logout = new LogoutUserPage(page, firstWord);
-  await logout.logOut();
-}
-
 export async function registerCompany(
   page: Page,
   firstName: string,

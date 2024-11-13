@@ -7,7 +7,7 @@ import { closeBrowserIfNoTests } from '../../setupContext/context';
     test.afterAll(async () => {
       await closeBrowserIfNoTests();
     });
-    test('smoke: Verify the correct Register to Omnio', async ({
+    test('smokeAdmin: Verify the correct Register to Omnio', async ({
       isOpenBrowser,
       companyCreated,
     }) => {
