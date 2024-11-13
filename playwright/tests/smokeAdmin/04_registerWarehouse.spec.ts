@@ -6,24 +6,12 @@ import { globals } from '../../globals';
 import { closeBrowserIfNoTests } from '../../setupContext/context';
 
 test.describe('Register and Connect Warehouse', () => {
-  // Lógica de limpieza que se ejecutará después de cada test
-  // test.afterEach(async ({ page }) => {
-  //   const dashboardAdmin = new DashAdminPage(page);
-  //   const listWarehousePage = new ListWarehousePage(
-  //     page,
-  //     globals.WAREHOUSE_CONNECTION_DATA.NAME
-  //   );
-  //   await dashboardAdmin.clickListWarehousesButton();
-  //   await listWarehousePage.clickDeleteConection();
-  //   await expect(page.getByText('Warehouse removed successly')).toBeVisible();
-  // });
-
   // Cierra el navegador después de todos los tests
   test.afterAll(async () => {
     await closeBrowserIfNoTests();
   });
 
-  test('smoke: Verify correct register and connection of new Warehouse', async ({
+  test('smokeAdmin: Verify correct register and connection of new Warehouse', async ({
     isLoggedIn,
     warehouseCreated,
     warehouseConnected,

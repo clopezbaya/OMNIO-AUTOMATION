@@ -9,7 +9,7 @@ test.describe('Logout to Omnio', () => {
     await closeBrowserIfNoTests();
   });
 
-  test('smoke: Verify the correct logout to Omnio', async ({
+  test('smokeAdmin: Verify the correct logout to Omnio', async ({
     page,
     isLoggedIn,
     setLoggedIn,
