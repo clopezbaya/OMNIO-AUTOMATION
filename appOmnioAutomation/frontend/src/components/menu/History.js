@@ -211,7 +211,7 @@ function History() {
               <Td>{item.formattedDate}</Td>{' '}
               {/* Mostrar solo la fecha formateada */}
               <Td>
-                {item.testName !== 'Single' && item.status !== 'Unknown' && (
+                {item.status !== 'Unknown' && (
                   <IconButton
                     aria-label='View report'
                     icon={<ViewIcon />}
