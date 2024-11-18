@@ -12,7 +12,7 @@ export class DashAdminPage {
     this.page = page;
     this.companyButton = page.getByText('Companies');
     this.listCompanies = page.getByText('List');
-    this.warehousesButton = page.getByText('Warehouses');
+    this.warehousesButton = page.getByText('Warehouses', { exact: true });
     this.listWarehouses = page.getByRole('link', { name: 'List', exact: true });
     this.newWarehouse = page.getByRole('link', { name: 'New', exact: true });
   }

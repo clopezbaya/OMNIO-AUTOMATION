@@ -73,7 +73,7 @@ function LoginForm({ environment }) {
 
     try {
       const response = await axios.post('/login', loginData);
-      setMessage(response.data.message);
+      setMessage(`${response.data.message} - ${response.data.resultMail}`);
       setResult(response.data.results || response.data.error);
       setError('');
 

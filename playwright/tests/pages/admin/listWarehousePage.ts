@@ -18,7 +18,7 @@ export class ListWarehousePage {
     this.deleteConnectionButton = page.getByRole('menuitem', {
       name: 'Delete',
     });
-    this.confirmDeleteButton = page.getByRole('button', { name: 'Yes' });
+    this.confirmDeleteButton = page.getByRole('button', { name: 'Confirm' });
   }
 
   async clickCheckConnectionIloc() {

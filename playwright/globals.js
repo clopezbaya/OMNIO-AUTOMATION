@@ -6,12 +6,12 @@ export const globals = {
 
   LOGIN_URL: 'https://omnio04.shipedge.com/session/login',
   WAREHOUSE_TEST: {
-    NAME: 'qa17',
-    SERVER_NAME: 'qa17',
-    PREFIX: 'qa17',
+    NAME: 'qa25',
+    SERVER_NAME: 'qa25',
+    PREFIX: 'qa25',
     FIRST_ADDRESS: '1250 U.S. 130',
     SECOND_ADDRESS: '',
-    URL: 'https://qa17.shipedge.com',
+    URL: 'https://qa25.shipedge.com',
     URL_IMAGES: '',
     FIRST_PHONE: 454345342,
     SECOND_PHONE: 54345342,
@@ -24,11 +24,11 @@ export const globals = {
     CORPORAT_EMAIL: 'test22@gmail.com',
   },
   WAREHOUSE_CONNECTION_DATA: {
-    NAME: 'qa17',
+    NAME: 'qa25',
     TYPE_DATA_BASE: 'mysql',
-    HOST: 'qa17.shipedge.com',
+    HOST: 'qa25.shipedge.com',
     PORT: '3306',
-    DATABASE: 'shipedge_alpaca_qa17',
+    DATABASE: 'shipedge_alpaca_qa25',
     USERNAME: 'remote',
     PASSWORD: 'muddyB3e54',
     CHARACTER: 'utf8',
@@ -37,8 +37,8 @@ export const globals = {
   },
   ILOC_SHIPEDGE: {
     NAME: 'Shipedge - WAREHOUSE',
-    USERNAME: 'oms3',
-    PASSWORD: 'shipedge12345.',
+    USERNAME: 'darknext01',
+    PASSWORD: 'Admin123',
   },
   LOGIN_ADMIN_OMNIO: {
     USERNAME: 'admin@shipedge.com',
@@ -58,4 +58,10 @@ export const globals = {
     PHONE: 85839284,
     POSTAL_CODE: 14611,
   },
+  // FLAG_TESTS: {
+  //   ISLOGIN: FALSE,
+  //   ISCOMPANY_REGISTER: FALSE,
+  //   ISWAREHOUSE_REGISTER: FALSE,
+  //   ISCONECTED_COMPANY_ILOC: FALSE,
+  // },
 };

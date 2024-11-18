@@ -18,8 +18,9 @@ export class NewILocPage {
 
   async deleteILoc(warehouse) {
     this.deleteILocButton = this.page.locator(
-      `//tr//td//div//div[contains(text(),${warehouse})]/../../..//td//button[2]`
+      `//tr[contains(., '${warehouse}')]//button[2]`
     );
+    //`//tr//td//div//div[contains(text(),${warehouse})]/../../..//td//button[2]`
     await this.deleteILocButton.click();
     await this.confirmDeleteIloc.click();
   }

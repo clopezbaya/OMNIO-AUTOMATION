@@ -56,7 +56,7 @@ function ExecuteTestCases() {
           name: selectedEnv,
         },
       });
-      setMessage(response.data.message);
+      setMessage(`${response.data.message} - ${response.data.resultMail}`);
       setResult(response.data.results || response.data.error);
       setError('');
     } catch (err) {
@@ -77,7 +77,7 @@ function ExecuteTestCases() {
   return (
     <Box p={6} backgroundColor='gray.50' minH='100vh'>
       <Heading textAlign='center' mb={8} size='2xl' color='teal.500'>
-        Test Automation OMNIO App
+        Test Automation OMNIO
       </Heading>
       <Stack spacing={4} maxW='600px' mx='auto'>
         <Select
@@ -115,10 +115,20 @@ function ExecuteTestCases() {
                     variant='outline'
                     m={2}
                     w='45%'
-                    onClick={() => handleExecute('smoke')}
+                    onClick={() => handleExecute('smokeAdmin')}
                     isDisabled={!selectedEnv} // Deshabilitar si no hay entorno seleccionado
                   >
-                    Smoke
+                    Smoke Admin
+                  </Button>
+                  <Button
+                    colorScheme='teal'
+                    variant='outline'
+                    m={2}
+                    w='45%'
+                    onClick={() => handleExecute('smokeUser')}
+                    isDisabled={!selectedEnv} // Deshabilitar si no hay entorno seleccionado
+                  >
+                    Smoke User
                   </Button>
                   <Button
                     colorScheme='teal'
@@ -129,16 +139,6 @@ function ExecuteTestCases() {
                     isDisabled={!selectedEnv} // Deshabilitar si no hay entorno seleccionado
                   >
                     Regression
-                  </Button>
-                  <Button
-                    colorScheme='teal'
-                    variant='outline'
-                    m={2}
-                    w='45%'
-                    onClick={() => handleExecute('e2e')}
-                    isDisabled={!selectedEnv} // Deshabilitar si no hay entorno seleccionado
-                  >
-                    E2E
                   </Button>
                   <Button
                     colorScheme='teal'

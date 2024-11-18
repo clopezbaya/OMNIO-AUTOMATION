@@ -5,10 +5,11 @@ import { LogoutUserPage } from '../pages/user/logoutUserPage';
 import { RegisterCompanyPage } from '../pages/admin/registerCompanyPage';
 import { NewWarehousePage } from '../pages/admin/newWarehousePage';
 import { ConnectDataWarehousePage } from '../pages/admin/connectDataWarehousePage';
+import { globals } from '../../globals';
 
 export async function login(page: Page, username: string, password: string) {
   const login = new LoginPage(page);
-  await page.goto('/');
+  await page.goto(globals.LOGIN_URL);
   await login.fillUserEmailField(username);
   await login.fillPasswordField(password);
   await login.clickLogin();
@@ -16,11 +17,6 @@ export async function login(page: Page, username: string, password: string) {
 
 export async function logoutAdmin(page: Page) {
   const logout = new LogoutAdminPage(page);
-  await logout.logOut();
-}
-
-export async function logoutUser(page: Page, firstWord: string) {
-  const logout = new LogoutUserPage(page, firstWord);
   await logout.logOut();
 }
 
