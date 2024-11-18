@@ -111,8 +111,6 @@ test.describe('Company connect with Shippedge', async () => {
         globals.WAREHOUSE_TEST.NAME
       );
       await expect(page.getByText('Remove succesfully')).toBeVisible();
-      // await page.close();
-      //await browserContext.close();
     });
   });
 });
