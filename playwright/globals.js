@@ -5,6 +5,12 @@ export const globals = {
   WAREHOUSES_LIST: 'https://omnio04.shipedge.com/admin/warehouses',
 
   LOGIN_URL: 'https://omnio04.shipedge.com/session/login',
+
+  WAREHOUSE_TEST_USER: {
+    NAME: 'qa17',
+    USERNAME: 'oms2',
+    PASSWORD: 'Admin123',
+  },
   WAREHOUSE_TEST: {
     NAME: 'qa25',
     SERVER_NAME: 'qa25',
@@ -57,6 +63,15 @@ export const globals = {
     ADDRESS: '1000 Genesee St',
     PHONE: 85839284,
     POSTAL_CODE: 14611,
+  },
+
+  PRODUCT_TEST: {
+    PRODUCT_NAME: 'TEST PRODUCT',
+    DESCRIPTION: 'TEST DESCRIPTION',
+    WEIGHT: 1,
+    WIDTH: 1,
+    HEIGHT: 1,
+    LENGTH: 1,
   },
   // FLAG_TESTS: {
   //   ISLOGIN: FALSE,

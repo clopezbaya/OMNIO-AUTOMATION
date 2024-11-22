@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../fixtures';
+import { test } from '../fixturesAdmin';
 import { login, logoutAdmin } from '../helpers/authAdminHelper';
 import { loginShipedgeIloc, logoutUser } from '../helpers/authUserHelper';
 import { DashAdminPage } from '../pages/admin/dashAdminPage';
@@ -53,10 +53,7 @@ test.describe('Company connect with Shippedge', async () => {
     );
 
     const dashboardUser = new DashUserPage(page);
-    const dashboardNewInventoryLocation = new NewILocPage(
-      page,
-      globals.ILOC_SHIPEDGE.NAME
-    );
+    const dashboardNewInventoryLocation = new NewILocPage(page);
     const iLocShipedgePopUp = new ILocShipedgePopUpPage(page);
 
     await test.step('Prerequirements done', async () => {
@@ -87,14 +84,12 @@ test.describe('Company connect with Shippedge', async () => {
     });
 
     await test.step('Verify that the user can connect with iLoc', async () => {
-      const isVisibleBanner =
-        await dashboardUser.closeBannerLocator.isVisible();
-      if (isVisibleBanner) {
-        await dashboardUser.closeBanner();
-      }
+      await dashboardUser.closeBanner();
       await dashboardUser.clickSettings();
       await dashboardUser.clickNewInventoryLocation();
-      await dashboardNewInventoryLocation.clickILocSelected();
+      await dashboardNewInventoryLocation.clickILocSelected(
+        globals.ILOC_SHIPEDGE.NAME
+      );
       await iLocShipedgePopUp.clickDropDownWarehouse(
         globals.WAREHOUSE_TEST.NAME
       );

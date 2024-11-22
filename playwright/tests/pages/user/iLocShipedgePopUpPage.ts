@@ -18,7 +18,7 @@ export class ILocShipedgePopUpPage {
 
   async clickDropDownWarehouse(warehouse: string) {
     await this.warehouseDropdown.click();
-    await this.page.getByText(warehouse).click();
+    await this.page.getByText(warehouse, { exact: true }).click();
   }
 
   async fillUsernameField(username: string) {
