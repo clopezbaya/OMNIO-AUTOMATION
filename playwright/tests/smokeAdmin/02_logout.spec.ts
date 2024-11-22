@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../fixtures';
+import { test } from '../fixturesAdmin';
 import { logoutAdmin } from '../helpers/authAdminHelper';
 import { closeBrowserIfNoTests } from '../../setupContext/context';
 import { globals } from '../../globals';

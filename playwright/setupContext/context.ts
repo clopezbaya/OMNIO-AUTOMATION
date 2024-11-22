@@ -12,7 +12,7 @@ let isLoggedIn = false;
 
 export async function setupContext() {
   if (!browser) {
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({ headless: false });
   }
 
   if (!context) {
