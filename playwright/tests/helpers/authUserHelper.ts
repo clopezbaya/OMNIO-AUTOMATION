@@ -1,5 +1,5 @@
 import { Page } from 'playwright/test';
-import { ILocShipedgePopUpPage } from '../pages/user/iLocShipedgePopUpPage';
+import { ILocShipedgePopUpPage } from '../pages/user/newConectionPages/iLocShipedgePopUpPage';
 import { LogoutUserPage } from '../pages/user/logoutUserPage';
 
 export async function loginShipedgeIloc(page, username, password) {

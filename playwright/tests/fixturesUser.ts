@@ -2,13 +2,17 @@ import { test as base, Page } from '@playwright/test';
 import { login } from './helpers/authAdminHelper';
 import { globals } from '../globals';
 import { setupContext } from '../setupContext/context';
-import { ProductsPage } from './pages/user/productsPage';
-import { NewProductPage } from './pages/user/newProductPage';
+import { InventoryPage } from './pages/user/productPages/inventoryPage';
+import { NewProductPage } from './pages/user/productPages/newProductPage';
 import { DashUserPage } from './pages/user/dashUserPage';
+import { ContactPage } from './pages/user/orderPages/contactPage';
+import { OrderPage } from './pages/user/orderPages/orderPage';
+import { NewOrderPage } from './pages/user/orderPages/newOrderPage';
 
 type TestFixtures = {
   isOpenBrowser: boolean;
   isProductCreated: boolean;
+  isContactCreated: boolean;
   isLoggedIn: boolean;
   page: Page;
 };
@@ -16,6 +20,7 @@ type TestFixtures = {
 let openBrowser = false;
 let loggedIn = false;
 let productCreated = false;
+let contactCreated = false;
 
 const test = base.extend<TestFixtures>({
   page: async ({}, use) => {
@@ -46,7 +51,7 @@ const test = base.extend<TestFixtures>({
 
   isProductCreated: async ({ page }, use) => {
     if (!productCreated) {
-      const productsPage = new ProductsPage(page);
+      const productsPage = new InventoryPage(page);
       const newProductPage = new NewProductPage(page);
       const dashUserPage = new DashUserPage(page);
       await dashUserPage.clickProducts();
@@ -64,6 +69,34 @@ const test = base.extend<TestFixtures>({
     }
 
     await use(productCreated);
+  },
+
+  isContactCreated: async ({ page }, use) => {
+    if (!contactCreated) {
+      const orderPage = new OrderPage(page);
+      const newOrderPage = new NewOrderPage(page);
+      const contactPage = new ContactPage(page);
+      const dashUserPage = new DashUserPage(page);
+      await dashUserPage.clickOrders();
+      await dashUserPage.clickOrdersSubmenu();
+      await orderPage.clickCreateNewOrder();
+      await newOrderPage.clickCreateNewContact();
+      await contactPage.clickNewContact();
+      await contactPage.newContact(
+        globals.CONTACT_TEST.COMPANY,
+        globals.CONTACT_TEST.FIRST_NAME,
+        globals.CONTACT_TEST.LAST_NAME,
+        globals.CONTACT_TEST.ADDRESS,
+        globals.CONTACT_TEST.EMAIL,
+        globals.CONTACT_TEST.COUNTRY,
+        globals.CONTACT_TEST.STATE,
+        globals.CONTACT_TEST.CITY,
+        globals.CONTACT_TEST.POSTAL_CODE
+      );
+      contactCreated = true;
+    }
+
+    await use(contactCreated);
   },
 });
 

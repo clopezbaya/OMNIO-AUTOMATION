@@ -3,12 +3,12 @@ import { test } from '../fixturesUser';
 import { closeBrowserIfNoTests } from '../../setupContext/context';
 import { globals } from '../../globals';
 import { DashUserPage } from '../pages/user/dashUserPage';
-import { NewILocPage } from '../pages/user/newILocPage';
-import { ConfigUserPage } from '../pages/user/configUserPage';
-import { AutomatePage } from '../pages/user/automatePage';
+import { NewILocPage } from '../pages/user/newConectionPages/newILocPage';
+import { ConfigUserPage } from '../pages/user/newConectionPages/configUserPage';
+import { AutomatePage } from '../pages/user/automateConfigIlogPage';
 import { loginShipedgeIloc } from '../helpers/authUserHelper';
-import { ILocShipedgePopUpPage } from '../pages/user/iLocShipedgePopUpPage';
-import { InventoryPage } from '../pages/user/inventoryPage';
+import { ILocShipedgePopUpPage } from '../pages/user/newConectionPages/iLocShipedgePopUpPage';
+import { InventoryConfigIlocPage } from '../pages/user/newConectionPages/inventoryConfigIlogPage';
 
 test.describe('Sync Skus OMS and OMNIO', () => {
   test.afterAll(async () => {
@@ -24,7 +24,7 @@ test.describe('Sync Skus OMS and OMNIO', () => {
     const configUserPage = new ConfigUserPage(page);
     const automatePage = new AutomatePage(page);
     const iLocShipedgePopUp = new ILocShipedgePopUpPage(page);
-    const inventoryPage = new InventoryPage(page);
+    const inventoryPage = new InventoryConfigIlocPage(page);
 
     await test.step('Preconditions', async () => {
       expect(isLoggedIn).toBe(true);

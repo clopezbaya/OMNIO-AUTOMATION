@@ -3,6 +3,7 @@ export const globals = {
   DASHBOARD_URL: 'https://omnio04.shipedge.com/dashboard',
   WAREHOUSE_CREATE: 'https://omnio04.shipedge.com/admin/warehouses/create',
   WAREHOUSES_LIST: 'https://omnio04.shipedge.com/admin/warehouses',
+  INVENTORY_URL: 'https://omnio04.shipedge.com/inventory',
 
   LOGIN_URL: 'https://omnio04.shipedge.com/session/login',
 
@@ -53,9 +54,9 @@ export const globals = {
   COMPANY_TEST: {
     FIRST_NAME: 'David',
     LAST_NAME: 'Pizarro Villca',
-    EMAIL: 'usertest1@gmail.com',
+    EMAIL: 'usertest111@gmail.com',
     PASSWORD: 'Shipedge123.',
-    COMPANY: 'Company Test playwright1',
+    COMPANY: 'AUTOMATION COMPANY',
     CONTACT_FULL_NAME: 'David Pizarro Villca',
     COUNTRY: 'United States',
     STATE: 'New York',
@@ -72,6 +73,18 @@ export const globals = {
     WIDTH: 1,
     HEIGHT: 1,
     LENGTH: 1,
+  },
+
+  CONTACT_TEST: {
+    COMPANY: 'STORE COMPANY',
+    FIRST_NAME: 'Edward',
+    LAST_NAME: 'Guardia Vela',
+    ADDRESS: '1250 U.S. 130',
+    EMAIL: 'carlos.guardia@gmail.com',
+    COUNTRY: 'United States',
+    STATE: 'New Mexico',
+    CITY: 'Robbinsville',
+    POSTAL_CODE: '08691',
   },
   // FLAG_TESTS: {
   //   ISLOGIN: FALSE,

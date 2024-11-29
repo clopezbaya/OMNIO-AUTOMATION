@@ -11,9 +11,10 @@
     "start": "nodemon ./src/app.js",
     "test:login": "playwright test --grep 'login'",
     "test:logout": "playwright test --grep 'logout'",
-    "test:register": "playwright test --grep 'Register in Omnio'",
+    "test:register": "playwright test --grep 'Verify the correct Creaction of company in OMNIO'",
     "test:registerW": "playwright test --grep 'Register and Connect Warehouse'",
-    "test:connectW": "playwright test --grep 'Company connect with Shippedge'",
+    "test:product": "playwright test --grep 'Verify the correct creation of product in Omnio'",
+    "test:contact": "playwright test --grep 'Create New Contact'",
     "report": "npx playwright show-report"
   },
   "keywords": [],
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "express": "^4.21.0",
-    "nodemailer": "^6.9.15"
+    "nodemailer": "^6.9.15",
+    "pg": "^8.13.1"
   }
 }

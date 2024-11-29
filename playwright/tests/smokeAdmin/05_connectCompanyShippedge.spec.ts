@@ -1,13 +1,13 @@
 import { expect } from '@playwright/test';
 import { test } from '../fixturesAdmin';
-import { login, logoutAdmin } from '../helpers/authAdminHelper';
+import { login } from '../helpers/authAdminHelper';
 import { loginShipedgeIloc, logoutUser } from '../helpers/authUserHelper';
 import { DashAdminPage } from '../pages/admin/dashAdminPage';
 import { ListCompanyPage } from '../pages/admin/listCompanyPage';
 import { globals } from '../../globals';
 import { DashUserPage } from '../pages/user/dashUserPage';
-import { NewILocPage } from '../pages/user/newILocPage';
-import { ILocShipedgePopUpPage } from '../pages/user/iLocShipedgePopUpPage';
+import { NewILocPage } from '../pages/user/newConectionPages/newILocPage';
+import { ILocShipedgePopUpPage } from '../pages/user/newConectionPages/iLocShipedgePopUpPage';
 import { closeBrowserIfNoTests } from '../../setupContext/context';
 import { ListWarehousePage } from '../pages/admin/listWarehousePage';
 
@@ -77,7 +77,9 @@ test.describe('Company connect with Shippedge', async () => {
       await dashboardListAdmin.clickCreateConection();
       await dashboardListAdmin.selectkWarehuseConnection();
       await dashboardListAdmin.clickButtonAssigned();
-      await expect(page.getByText('qa17', { exact: true })).toBeVisible();
+      await expect(
+        page.getByText(globals.WAREHOUSE_TEST.NAME, { exact: true })
+      ).toBeVisible();
       await dashboardListAdmin.loginUser();
       await page.waitForURL(globals.DASHBOARD_URL);
       await expect(page.url()).toBe(globals.DASHBOARD_URL);

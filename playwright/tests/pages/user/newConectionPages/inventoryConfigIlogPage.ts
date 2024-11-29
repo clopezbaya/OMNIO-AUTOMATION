@@ -1,6 +1,6 @@
 import { type Page, type Locator } from '@playwright/test';
 
-export class InventoryPage {
+export class InventoryConfigIlocPage {
   page: Page;
   pagination: Locator;
   skuFilter: Locator;
@@ -13,8 +13,7 @@ export class InventoryPage {
       .getByLabel('SKU', { exact: true })
       .getByRole('textbox');
     this.nameFilter = page
-      .locator('#tab-4')
-      .getByLabel('Name')
+      .getByLabel('SKU', { exact: true })
       .getByRole('textbox');
   }
 

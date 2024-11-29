@@ -34,6 +34,7 @@ export class ListCompanyPage {
   }
 
   async clickCompanySelected() {
+    await this.companySelected.scrollIntoViewIfNeeded();
     await this.companySelected.click();
   }
 

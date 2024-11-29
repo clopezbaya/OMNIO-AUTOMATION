@@ -4,6 +4,8 @@ export class DashUserPage {
   page: Page;
   settingsButton: Locator;
   productsButton: Locator;
+  ordersButton: Locator;
+  ordersSubmenuButton: Locator;
   inventoryButton: Locator;
   newInventoryLocationBUtton: Locator;
   closeBannerLocator: Locator;
@@ -17,6 +19,10 @@ export class DashUserPage {
       name: 'Inventory',
       exact: true,
     });
+    this.ordersButton = page.getByRole('button', { name: 'Orders' });
+    this.ordersSubmenuButton = page
+      .getByRole('navigation')
+      .getByRole('link', { name: 'Orders' });
     this.closeBannerLocator = page.getByLabel('Close Stonly banner');
   }
 
@@ -31,6 +37,14 @@ export class DashUserPage {
 
   async clickProducts() {
     await this.productsButton.click();
+  }
+
+  async clickOrders() {
+    await this.ordersButton.click();
+  }
+
+  async clickOrdersSubmenu() {
+    await this.ordersSubmenuButton.click();
   }
 
   async clickInventory() {
